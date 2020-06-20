@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const {uuid} = require('uuidv4')
 const bcrypt = require('bcrypt')
 const {ObjectId} = mongoose.Schema;
-const saltRounds = 14;
+const saltRounds = 12;
 
 const userSchema = new mongoose.Schema({
   username : {
@@ -34,13 +34,27 @@ userSchema.virtual('password')
   })
   .get(() => this._password)
 
+// userSchema.methods = {
+//   authenticate: async plaintext => await this.encryptPassword(plaintext) === this.hashed_password ,
+//
+//   encryptPassword: password => bcrypt.hashSync(password, saltRounds),
+//
+//   comparePasswords : async pwdToCompare =>await bcrypt.compare(pwdToCompare, this.hashed_password)
+//
+// }
+
 userSchema.methods = {
-  authenticate: async plaintext => await this.encryptPassword(plaintext) === this.hashed_password ,
+  authenticate: async function(plaintext){
+    return await this.encryptPassword(plaintext) === this.hashed_password;
+  },
 
-  encryptPassword: password => bcrypt.hashSync(password, saltRounds),
+  encryptPassword: function(password) {
+    return bcrypt.hashSync(password, saltRounds);
+  },
 
-  comparePasswords : async pwdToCompare =>await bcrypt.compare(pwdToCompare, this.hashed_password)
-
+  comparePasswords : async function(pwdToCompare) {
+    return await bcrypt.compare(pwdToCompare, this.hashed_password);
+  }
 }
 
 
