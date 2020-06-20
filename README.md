@@ -10,4 +10,5 @@ JWT_SECRET=<Secret used to create jwt's>
 
 ### Routes
 
-``` POST /auth/signup ``` => Creates a new User.   
+``` POST /auth/signup ``` => Creates a new User.  
+``` POST /auth/signin ``` => Signs in the user.   
