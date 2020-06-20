@@ -20,7 +20,10 @@ const userShema = new mongoose.Schema({
     type : String,
     required : true
   },
-
+  transactions : [{
+    type : ObjectId,
+    ref : "Transaction"
+  }]
 })
 
 userShema.virtual('password')
