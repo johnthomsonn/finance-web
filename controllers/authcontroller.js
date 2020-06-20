@@ -74,3 +74,7 @@ exports.signup = async (req,res) => {
 catch(err) {cLog.error(err)}
 
 }
+
+exports.signin = (req,res) => {
+  
+}
