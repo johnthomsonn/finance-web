@@ -139,3 +139,10 @@ exports.signin = async (req,res) => {
   }
 
 }
+
+exports.signout = (req,res) => {
+  res.cookie("financetoken", "", {maxAge : 0})
+  return res.json({
+    message : "Signed out"
+  })
+}
