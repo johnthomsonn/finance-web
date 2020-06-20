@@ -34,14 +34,7 @@ userSchema.virtual('password')
   })
   .get(() => this._password)
 
-// userSchema.methods = {
-//   authenticate: async plaintext => await this.encryptPassword(plaintext) === this.hashed_password ,
-//
-//   encryptPassword: password => bcrypt.hashSync(password, saltRounds),
-//
-//   comparePasswords : async pwdToCompare =>await bcrypt.compare(pwdToCompare, this.hashed_password)
-//
-// }
+
 
 userSchema.methods = {
   authenticate: async function(plaintext){
