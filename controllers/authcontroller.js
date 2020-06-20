@@ -75,6 +75,67 @@ catch(err) {cLog.error(err)}
 
 }
 
-exports.signin = (req,res) => {
-  
+// unique could be an email or username depending on what the user tries to sign in with
+exports.signin = async (req,res) => {
+
+  let foundUser = undefined;
+  const unique = _.toLower(req.body.unique)
+
+  try{
+
+    if(/@/.test(unique))
+    {
+      foundUser = await User.findOne({email : unique})
+    }
+    else
+    {
+      foundUser = await User.findOne({username : unique})
+    }
+    if(!foundUser || foundUser === undefined)
+    {
+      return res.status(400).json({
+        error : "Invalid sign in information."
+      })
+    }
+    else
+    {
+
+      const passwordsMatch = await foundUser.comparePasswords(req.body.password);
+      if(!passwordsMatch)
+      {
+        return res.status(400).json({
+        error : "Invalid sign in information."
+      })
+      }
+      else{
+        const token = jwt.sign({
+          _id : foundUser._id
+        },
+        process.env.JWT_SECRET)
+
+        const cookieOptions = {
+          httpOnly : true,
+          expires : 0,
+          sameSite: "Strict"
+        }
+
+        res.cookie("financeToken", token, cookieOptions)
+
+        const {_id, email, username} = foundUser
+        return res.status(201).json({
+          user : {
+            _id,
+            email,
+            username
+          }
+        })
+      }
+    }
+
+  }
+  catch(err)
+  {
+    cLog.error("Error on signin: " + err)
+  }
+
 }
