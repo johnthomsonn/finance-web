@@ -2,10 +2,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const {uuid} = require('uuidv4')
 const brypt = require('bcrypt')
-const {ObjectId} = mongoose.schema;
+const {ObjectId} = mongoose.Schema;
 const saltRounds = 15;
 
-const userShema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   username : {
     type:String,
     trim : true,
@@ -26,12 +26,12 @@ const userShema = new mongoose.Schema({
   }]
 })
 
-userShema.virtual('password')
+userSchema.virtual('password')
 .set( async password => this.hashed_password = bcrypt.hashSync(password, saltRounds) )
 
-userShema.methods = {
+userSchema.methods = {
   comparePasswords : async pwdToCompare => brypt.compare(pwdToCompare, this.hashed_password)
 }
 
 
-module.exports mongoose.model("User", userSchema)
+module.exports =  mongoose.model("User", userSchema)
