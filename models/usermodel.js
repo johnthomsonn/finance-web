@@ -1,9 +1,9 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const {uuid} = require('uuidv4')
-const brypt = require('bcrypt')
+const bcrypt = require('bcrypt')
 const {ObjectId} = mongoose.Schema;
-const saltRounds = 15;
+const saltRounds = 14;
 
 const userSchema = new mongoose.Schema({
   username : {
@@ -27,10 +27,20 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.virtual('password')
-.set( async password => this.hashed_password = bcrypt.hashSync(password, saltRounds) )
+  .set(function(password) {
+    this._password = password;
+    //encrypt _password
+    this.hashed_password = this.encryptPassword(password);
+  })
+  .get(() => this._password)
 
 userSchema.methods = {
-  comparePasswords : async pwdToCompare => brypt.compare(pwdToCompare, this.hashed_password)
+  authenticate: async plaintext => await this.encryptPassword(plaintext) === this.hashed_password ,
+
+  encryptPassword: password => bcrypt.hashSync(password, saltRounds),
+
+  comparePasswords : async pwdToCompare =>await bcrypt.compare(pwdToCompare, this.hashed_password)
+
 }
 
 
