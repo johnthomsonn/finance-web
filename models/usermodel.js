@@ -4,6 +4,7 @@ const {uuid} = require('uuidv4')
 const bcrypt = require('bcrypt')
 const {ObjectId} = mongoose.Schema;
 const saltRounds = 12;
+const transactionSchema = require('./transactionmodelschema')
 
 const userSchema = new mongoose.Schema({
   username : {
@@ -20,10 +21,7 @@ const userSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  transactions : [{
-    type : ObjectId,
-    ref : "Transaction"
-  }]
+  transactions : [transactionSchema]
 })
 
 userSchema.virtual('password')
