@@ -1,8 +1,8 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const {ObjectId} = mongoose.Schema
+const {transactionCategories} = require('./transactioncategories')
 
-const transacitonCategories = ['bills', 'salary', 'food', 'other', 'bad']
 
 transactionSchema = new mongoose.Schema({
   description : {
@@ -24,13 +24,10 @@ transactionSchema = new mongoose.Schema({
   },
   category : {
     type : String,
-    enum : transacitonCategories,
+    enum : transactionCategories,
     required : true
   }
 })
 
-transactionSchema.methods = {
-  getCategories : () => transacitonCategories
-}
 
 module.exports = transactionSchema
