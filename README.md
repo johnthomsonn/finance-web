@@ -14,4 +14,5 @@ JWT_SECRET=<Secret used to create jwt's>
 ``` POST /auth/signin ``` => Signs in the user.  
 ``` GET /auth/signout ``` => Signs the user out.  
 
-``` POST /user/:username/transaction ``` => adds a transaction to the user given in :username     
+``` POST /user/:username/transaction ``` => adds a transaction to the user given in :username  
+``` DELETE /user/:username/transaction/:transactionId ``` => deletes the transaction :transactionId from the user with username :username       
