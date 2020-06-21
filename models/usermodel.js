@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
     type : String,
     required : true
   },
-  transactions : [transactionSchema]
+  transactions : [transactionSchema],
+  balance : {
+    type: Number,
+    default : 0
+  }
 })
 
 userSchema.virtual('password')
