@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose = require('mongoos')
+const mongoose = require('mongoose')
 const {ObjectId} = mongoose.Schema
 
 const transacitonCategories = ['bills', 'salary', 'food', 'other', 'bad']
@@ -17,7 +17,7 @@ const transactionSchema = new mongoose.Schema({
     type : ObjectId,
     ref : "User"
   },
-  transaction: {
+  transactionType: {
     type : String,
     enum : ['income' , 'expenditure'],
     required : true
