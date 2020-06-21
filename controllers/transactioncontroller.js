@@ -74,7 +74,7 @@ exports.addTransaction = async (req,res) => {
     const savedTransaction = await newTransaction.save();
     const user = req.user
     user.transactions.push(savedTransaction)
-    const savedUser = user.save()
+    const savedUser = await user.save()
 
     return res.json({
       message : "transaction " + savedTransaction.description + " saved.",
