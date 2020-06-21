@@ -13,6 +13,7 @@ const app = new express();
 
 //routes
 const authRoute = require('./routes/authroute')
+const transactionRoute = require('./routes/transactionroute')
 
 
 //middleware
@@ -26,6 +27,7 @@ app.use(cors({
 app.options('*', cors())
 
 app.use("/auth", authRoute)
+app.use("/user/transaction", transactionRoute)
 
 app.get("/", (req,res) => res.send("Home page"))
 
