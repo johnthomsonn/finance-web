@@ -34,7 +34,7 @@ app.options('*', cors())
 
 //middleware routes
 app.use("/auth", authRoute)
-app.use("/user/:username/transaction", transactionRoute)
+app.use("/user/:username/transaction",needAuthentication, validateUser,transactionRoute)
 app.use("/user/:username/month/:month/transactions", needAuthentication, validateUser, transactionRoute)
 
 app.get("/", (req,res) => res.send("Home page"))
