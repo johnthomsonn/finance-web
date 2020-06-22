@@ -55,14 +55,15 @@ exports.deleteTransaction = (req, res) => {
 
 exports.addTransaction = async (req, res) => {
   try {
-    const {description, amount, transactionType, category} = req.body;
+    const {description, amount, transactionType, category, date} = req.body;
 
     const newTransaction = await new Transaction({
       description,
       amount,
       transactionType,
       category,
-      user: req.user
+      user: req.user,
+      created : date
     });
     const savedTransaction = await newTransaction.save();
     if (savedTransaction != undefined) {
@@ -88,5 +89,11 @@ exports.addTransaction = async (req, res) => {
 };
 
 exports.getAllTransactionsForMonth = (req,res) => {
-
+  const [month, year] = req.month.split("-")
+  const transactions = req.user.transactions.filter(trans => {
+    return "20"+year == trans.created.getFullYear() && month == trans.created.getMonth()+1
+  })
+  return res.json({
+    transactions
+  })
 }
