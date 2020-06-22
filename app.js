@@ -17,6 +17,7 @@ const transactionRoute = require('./routes/transactionroute')
 
 //additional needs for routes
 const {getUserByUsernameParam} = require('./controllers/usercontroller')
+const {getMonthByUrlParam} = require('./controllers/monthcontroller')
 
 //middleware
 app.use(morgan(':method :remote-addr :url :status :response-time ms :res[content-length]'));
@@ -31,11 +32,12 @@ app.options('*', cors())
 //middleware routes
 app.use("/auth", authRoute)
 app.use("/user/:username/transaction", transactionRoute)
+app.use("/user/:username/month/:month/transactions",transactionRoute)
 
 app.get("/", (req,res) => res.send("Home page"))
 
 app.param("username", getUserByUsernameParam)
-
+app.param("month", getMonthByUrlParam)
 
 
 
