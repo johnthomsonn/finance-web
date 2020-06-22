@@ -99,6 +99,8 @@ exports.signup = async (req, res) => {
 
         res.cookie("financeToken", token, cookieOptions);
 
+        res.cookie("localToken", true, {expires:0, sameSite:"Strict"})
+
         const {_id, email, username} = savedUser;
         return res.status(201).json({
           user: {
@@ -152,7 +154,7 @@ exports.signin = async (req, res) => {
         };
 
         res.cookie("financeToken", token, cookieOptions);
-
+res.cookie("localToken", true, {expires:0, sameSite:"Strict"})
         const {_id, email, username} = foundUser;
         return res.status(201).json({
           user: {
@@ -170,6 +172,7 @@ exports.signin = async (req, res) => {
 
 exports.signout = (req, res) => {
   res.cookie("financeToken", "", {maxAge: 0});
+  res.cookie("localToken", "", {maxAge : 0})
   return res.json({
     message: "Signed out"
   });
