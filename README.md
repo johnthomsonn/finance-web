@@ -15,4 +15,5 @@ JWT_SECRET=<Secret used to create jwt's>
 ``` GET /auth/signout ``` => Signs the user out.  
 
 ``` POST /user/:username/transaction ``` => adds a transaction to the user given in :username  
-``` DELETE /user/:username/transaction/:transactionId ``` => deletes the transaction :transactionId from the user with username :username       
+``` DELETE /user/:username/transaction/:transactionId ``` => deletes the transaction :transactionId from the user with username :username    
+``` GET /user/:username/month/:month/transactions ``` => returns all transactions for that month. (:month must be of the form mmm-yy)  
