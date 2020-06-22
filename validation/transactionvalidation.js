@@ -22,7 +22,20 @@ exports.getTransactionCreationErrors = [
 
   check('category')
   .custom(value => transactionCategories.includes(value))
-  .withMessage("category must be one of " + transactionCategories)
+  .withMessage("category must be one of " + transactionCategories),
+
+  check('date')
+  .custom(date => {
+    const [year, month,day] = date.split("-")
+    const daysInMonth = getMonthDaysFromString(month)
+    if(year  >= 2020)
+      if(month >= 1 && month <=12)
+        if(day >= 1 && day <= daysInMonth)
+          return true
+    return  false
+  })
+  .withMessage('Invalid date.')
+
 ]
 
 
@@ -35,3 +48,48 @@ exports.transactionValidation = (req, res, next) => {
   }
   next();
 };
+
+const getMonthDaysFromString = (monthStr) => {
+  let num = 0;
+  monthNum = Number(monthStr)
+  switch(monthNum)
+  {
+    case  01 :
+      num = 31;
+      break
+      case 02 :
+      num = 29
+      break
+      case 03 :
+      num = 31
+      break
+      case 04 :
+      num = 30
+      break
+      case  05 :
+        num = 31;
+        break
+        case 06 :
+        num = 30
+        break
+        case 07 :
+        num = 31
+        break
+        case 08 :
+        num = 31
+        break
+        case  09 :
+          num = 30;
+          break
+          case 10 :
+          num = 31
+          break
+          case 11 :
+          num = 30
+          break
+          case 12 :
+          num = 31
+          break
+  }
+  return num;
+}
