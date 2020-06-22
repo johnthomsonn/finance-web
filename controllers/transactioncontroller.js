@@ -86,3 +86,7 @@ exports.addTransaction = async (req, res) => {
     });
   }
 };
+
+exports.getAllTransactionsForMonth = (req,res) => {
+
+}
