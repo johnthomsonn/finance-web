@@ -1,7 +1,7 @@
 #react frontend ignores
 /react-frontend/.gitignore
 /react-frontend/node_modules/
-
+*.scss
 
 package-lock.json
 # Logs
