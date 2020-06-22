@@ -3,6 +3,7 @@ const express = require("express");
 const _ = require("lodash");
 const jwt = require("jsonwebtoken");
 const User = require("../models/usermodel");
+const Transaction = require('../models/transactionmodel')
 const cLog = require("../utils/custom-Logging");
 const expressJWT = require("express-jwt");
 
@@ -173,3 +174,39 @@ exports.signout = (req, res) => {
     message: "Signed out"
   });
 };
+
+//delete transactions from transactions table
+//delete user
+//redirect to signout to remove cookies and sign out
+exports.deleteUser = async ( req,res) => {
+  const transactions = req.user.transactions
+
+try{
+
+  const deletePromises = await transactions.map( trans => Transaction.findByIdAndDelete(trans._id))
+  await Promise.all(deletePromises)
+
+  const deletedUser = await User.findByIdAndDelete(req.user._id)
+  if(!deletedUser || deletedUser == undefined )
+  {
+    cLog.error("Trying to delete user")
+    return res.status(400).json({
+      error: "Error trying to delete the user"
+    })
+  }
+  else
+  {
+    return res.json({
+      message : "User " + req.user.username + " deleted."
+    })
+  }
+}
+catch(err)
+{
+  cLog.error("Trying to delete user: " + err)
+  return res.status(400).json({
+    error : "Caught error trying to delete user."
+  })
+}
+
+}
