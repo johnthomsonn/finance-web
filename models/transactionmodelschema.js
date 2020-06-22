@@ -26,6 +26,10 @@ transactionSchema = new mongoose.Schema({
     type : String,
     enum : transactionCategories,
     required : true
+  },
+  created : {
+    type: Date,
+    default : Date.now
   }
 })
 
