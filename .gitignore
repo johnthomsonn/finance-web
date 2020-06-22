@@ -2,6 +2,7 @@
 /react-frontend/.gitignore
 /react-frontend/node_modules/
 *.scss
+*.css.map
 
 package-lock.json
 # Logs
