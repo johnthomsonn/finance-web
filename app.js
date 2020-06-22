@@ -34,6 +34,7 @@ app.options('*', cors())
 
 //middleware routes
 app.use("/auth", authRoute)
+app.use("/user/:username", needAuthentication, validateUser,authRoute)
 app.use("/user/:username/transaction",needAuthentication, validateUser,transactionRoute)
 app.use("/user/:username/month/:month/transactions", needAuthentication, validateUser, transactionRoute)
 
