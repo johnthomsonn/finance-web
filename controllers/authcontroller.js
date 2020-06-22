@@ -4,7 +4,47 @@ const _ = require('lodash')
 const jwt = require('jsonwebtoken')
 const User = require('../models/usermodel')
 const cLog = require('../utils/custom-Logging')
+const expressJWT = require('express-jwt')
 
+//checks that the user is logged in by checking cookie
+exports.needAuthentication = async (req,res,next) => {
+  const authCookie = req.cookies.financeToken;
+  if(!authCookie)
+  {
+    return res.status(400).json({
+      error : "You are not signed in."
+    })
+  }
+  else
+  {
+    const isValidAuth =  jwt.verify(authCookie, process.env.JWT_SECRET)
+    if(!isValidAuth) {
+      //invalid token so just clear the cookie
+      res.cookie('financeToken', '' , {maxAge : 0})
+      return res.status(400).json({
+        error : "Invalid authentication credentials."
+      })
+    }
+    else {
+      //valid credentails => check correct user id (if found then correct id)
+      const foundUser = await User.findOneById(isValidAuth._id)
+      if(!foundUser || foundUser === undefined)
+      {
+        return res.status(400).json({
+          error : "Invalid authentication credentials."
+        })
+      }
+      else
+      {
+        req.auth = foundUser._id
+        next()
+      }
+    }
+  }
+  return res.status(400).json({
+    error : "Something went wrong."
+  })
+}
 
 exports.signup = async (req,res) => {
   const email = _.toLower(req.body.email);
