@@ -71,7 +71,7 @@ exports.addTransaction = async (req, res) => {
       user.transactions.push(savedTransaction);
       const savedUser = await user.save();
       if (savedUser != undefined) {
-        return res.json({
+        return res.status(201).json({
           message: "transaction " + savedTransaction.description + " saved.",
           transaction_id: savedTransaction._id
         });
