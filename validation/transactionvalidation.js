@@ -34,7 +34,7 @@ exports.getTransactionCreationErrors = [
           return true
     return  false
   })
-  .withMessage('Invalid date.')
+  .withMessage('Invalid date. Must be in the form yyyy-mm-dd with valid numbers')
 
 ]
 
