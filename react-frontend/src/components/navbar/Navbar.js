@@ -6,13 +6,14 @@ const Navbar = props => {
 
 
 return (<>
-  <div className="navbar navbar-expand-md bg-dark container-fluid">
+  <nav className="navbar navbar-expand-md bg-dark container-fluid">
 
+  <div className="navbar-brand">Finance Tracker</div>
 
 
     <ul className="navbar-nav ">
       <li className="nav-item">
-        <Link to="/" className="nav-link" > Home </Link>
+        <Link to="/" className="nav-link"> Home </Link>
       </li>
       <li className="nav-item">
         <Link to="/" className="nav-link"> USername </Link>
@@ -37,7 +38,7 @@ return (<>
     </ul>
     </div>
 
-  </div>
+  </nav>
 </>)
 
 }
