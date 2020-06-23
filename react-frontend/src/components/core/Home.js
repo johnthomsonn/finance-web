@@ -1,7 +1,7 @@
 import React from 'react'
 import './Home.css'
-const Home = props => {
 
+const Home = props => {
 
   return (<>
     <div className="header">
