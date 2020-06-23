@@ -1,0 +1,23 @@
+.navbar {
+  min-height: 75px;
+  color: white;
+}
+.navbar .nav-link {
+  font-size: 1rem;
+}
+.navbar .nav-link:link {
+  color: white;
+}
+.navbar .nav-link:visited {
+  color: white;
+}
+.navbar .nav-link:hover {
+  color: white;
+  cursor: pointer;
+  color: #898f8b;
+}
+.navbar .nav-link:active {
+  color: white;
+}
+
+/*# sourceMappingURL=Navbar.css.map */
