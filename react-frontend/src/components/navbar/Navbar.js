@@ -1,6 +1,7 @@
 import React from 'react'
 import './Navbar.css'
 import {Link} from 'react-router-dom'
+import {isSignedIn} from '../../js/methods'
 
 const Navbar = props => {
 
@@ -15,9 +16,10 @@ return (<>
       <li className="nav-item">
         <Link to="/" className="nav-link"> Home </Link>
       </li>
-      <li className="nav-item">
+      {isSignedIn() && (<li className="nav-item">
         <Link to="/" className="nav-link"> USername </Link>
-      </li>
+      </li>)}
+
     </ul>
 
     <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navCollapse">
@@ -26,15 +28,18 @@ return (<>
 
     <div className="collapse navbar-collapse" id="navCollapse">
     <ul className="navbar-nav ml-auto">
+    { !isSignedIn() ? (<>
       <li className="nav-item">
         <Link to="/signup" className="nav-link"> Sign up </Link>
       </li>
       <li className="nav-item">
         <Link to="/signin" className="nav-link"> Sign in </Link>
       </li>
+    </>) : (
       <li className="nav-item">
         <Link to="/signout" className="nav-link"> Sign out</Link>
       </li>
+    )}
     </ul>
     </div>
 

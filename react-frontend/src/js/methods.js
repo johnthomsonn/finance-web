@@ -1,5 +1,5 @@
 exports.isSignedIn = () => {
-  const loggedCookie = getCookie("localToken")
+  const loggedCookie = document.cookie[0]
   console.log(loggedCookie)
   if(loggedCookie)
     return true
