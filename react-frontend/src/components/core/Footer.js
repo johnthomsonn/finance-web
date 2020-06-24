@@ -5,7 +5,7 @@ const Footer = props => {
   return (<>
     <footer>
       <p>
-        © John Thomson
+        © John Thomson { new Date(Date.now()).getUTCFullYear()}
       </p>
     </footer>
   </>)
