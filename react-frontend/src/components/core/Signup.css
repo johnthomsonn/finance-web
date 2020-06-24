@@ -1,3 +1,28 @@
-
+.signupBackground {
+  background-color: white;
+  min-height: 700px;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.signupBackground .signup {
+  width: 50%;
+  border: 2px solid black;
+  padding: 2%;
+  border-radius: 10px;
+}
+.signupBackground .signup h1 {
+  text-align: center;
+  font-family: "Varela Round", sans-serif;
+  text-decoration: underline;
+}
+.signupBackground .signup form {
+  margin-top: 5%;
+}
+.signupBackground .signup form label {
+  color: black;
+  font-size: 1.2rem;
+}
 
 /*# sourceMappingURL=Signup.css.map */
