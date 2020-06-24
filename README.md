@@ -11,6 +11,9 @@ where PORT is the port the server will run on. This defaults to 5000 if nothing 
 DB_URL is the conneciton string to connect to a MongoDB.  
 JWT_SECRET is the secret that JWT uses to sign the authentication cookies.  
 
+Both servers can be started by using ``` npm run dev ``` in the root folder. This will start
+the express server on port PORT || 5000 and the react server on port 3000.
+
 ### Routes
 
 ``` POST /auth/signup ``` => Creates a new User.  
