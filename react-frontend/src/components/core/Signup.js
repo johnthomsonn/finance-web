@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
+import {Redirect} from 'react-router-dom'
 import './Signup.css'
+import {isSignedIn} from '../../js/methods'
 
 const Signup = props => {
 
@@ -16,6 +18,11 @@ const Signup = props => {
     alert("submitted")
 
 
+  }
+
+  if(isSignedIn())
+  {
+    return <Redirect to="/" />
   }
 
 
