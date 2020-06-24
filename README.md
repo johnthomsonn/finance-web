@@ -7,6 +7,9 @@ PORT=<Port number>
 DB_URL=<url of your database>  
 JWT_SECRET=<Secret used to create jwt's>  
 
+where PORT is the port the server will run on. This defaults to 5000 if nothing is set here.  
+DB_URL is the conneciton string to connect to a MongoDB.  
+JWT_SECRET is the secret that JWT uses to sign the authentication cookies.  
 
 ### Routes
 
