@@ -7,7 +7,7 @@ const Navbar = props => {
 
 
 return (<>
-  <nav className="navbar navbar-expand-md bg-dark container-fluid">
+  <nav className="navbar navbar-expand-md bg-dark container-fluid" >
 
   <div className="navbar-brand">Finance Tracker</div>
 
