@@ -24,5 +24,10 @@
   color: black;
   font-size: 1.2rem;
 }
+.signupBackground .signup form input {
+  background-image: -webkit-linear-gradient(bottom, #42413f 2px, rgba(0, 150, 136, 0) 0%), -webkit-linear-gradient(bottom, rgba(0, 0, 0, 0.26) 1px, transparent 0%);
+  background-image: -o-linear-gradient(bottom, #42413f 2px, rgba(0, 150, 136, 0) 0%), -o-linear-gradient(bottom, rgba(0, 0, 0, 0.26) 1px, transparent 0%);
+  background-image: linear-gradient(to top, #42413f 2px, rgba(0, 150, 136, 0) 0%), linear-gradient(to top, rgba(0, 0, 0, 0.26) 1px, transparent 0%);
+}
 
 /*# sourceMappingURL=Signup.css.map */
