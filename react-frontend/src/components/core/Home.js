@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import Footer from './Footer'
 
 import './Home.css'
 
@@ -29,12 +30,8 @@ const Home = props => {
       <p>Examples could go here</p>
     </section>
 
+    <Footer />
 
-    <footer>
-      <p>
-        © John Thomson
-      </p>
-    </footer>
   </>)
 }
 export default Home
