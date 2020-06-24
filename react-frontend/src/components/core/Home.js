@@ -24,6 +24,17 @@ const Home = props => {
         and categorise them which allows you to see exactly where your money is going each month.
       </p>
     </section>
+
+    <section id="ex">
+      <p>Examples could go here</p>
+    </section>
+
+
+    <footer>
+      <p>
+        © John Thomson
+      </p>
+    </footer>
   </>)
 }
 export default Home
