@@ -53,7 +53,8 @@ mongoose.connect(process.env.DB_URL, {
   useUnifiedTopology: true,
   useNewUrlParser : true
 }).then(() => cLog.info('Database connected '))
-mongoose.connection.on('error', err => cLog.error("Error connecting to database: " + err ))
+.catch(err => cLog.error("Cannot connect to database at " + process.env.DB_URL + ". "+err))
+//mongoose.connection.on('error', err => cLog.error("Error connecting to database: " + err ))
 
 
 const port = process.env.port || 5000;
