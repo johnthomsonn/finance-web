@@ -1,7 +1,15 @@
 exports.isSignedIn = () => {
-  const loggedCookie = document.cookie[0]
-  if(loggedCookie)
-    return false
+
+  const allCookies = document.cookie.split(';');
+  const isLogged = undefined;
+  allCookies.forEach(cookieStr => {
+    const cookies = cookieStr.split('=');
+    if(cookies[0] == "localToken")
+      isLogged = cookies[1];
+  })
+
+  if(isLogged !== undefined)
+    return isLogged
   return false
 }
 
