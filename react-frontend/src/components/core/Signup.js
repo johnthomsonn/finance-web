@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Redirect} from "react-router-dom";
 import "./Signup.css";
 import {isSignedIn, validateUsername, validateEmail} from "../../js/methods";
@@ -13,38 +13,43 @@ const Signup = props => {
     confirm: ""
   });
   const [error, setError] = useState("")
-  const [valid, setValid] = useState(false)
+  const [showSubmit, setShowSubmit] = useState(false)
   const [validState, setValidState] = useState({
     username : false,
     email : false,
     password : false
   })
 
+  //effects
+  useEffect( () => shouldSubmitButtonAppear() , [validState])
+
+  //called whenever the user presses a key in the submit form
   const handleInput = name => evt => {
     const change = evt.target.value;
     //set the new input
     setInput({...input, [name] : change});
 
-    let validInputs = false;
+    //sets the input state to be valid or not depending on user input
+    setInputState(name, change)
 
+  };
+
+  //sets the input state by checking if the input is valid
+  const setInputState = (name, change) => {
     if( name === "username")
       setValidState({...validState, username : isValidUsername(change)});
     else if(name === "email")
       setValidState({...validState, email : isValidEmail(change)});
-    else if(name ==="confirm"){
+    else if(name ==="confirm")
+      setValidState({...validState, password : input.password.length != 0 && input.password === change});
+    else if(name ==="password")
+      setValidState({...validState, password : change.length != 0 && change === input.confirm});
+  }
 
-      setValidState({...validState, password : input.password.length != 0 && input.password === input.confirm});
-      alert( input.password === input.confirm)
-    }
-
-
-    if(validState.username && validState.password && validState.email)
-      validInputs = true;
-
-
-      //set valid or not
-      setValid(validInputs)
-  };
+  // checks to see if user input is valid by checking the valid state then sets the showSubmit state
+  const shouldSubmitButtonAppear =  () => {
+      setShowSubmit((validState.username && validState.password && validState.email) ? true : false)
+  }
 
   const submitSignup = evt => {
     evt.preventDefault();
@@ -167,7 +172,7 @@ const Signup = props => {
             <button
               type="submit"
               className="btn btn-raised submit-button"
-              style={{display: valid ? "" : "none"}}
+              style={{display: showSubmit ? "" : "none"}}
             >
               {" "}
               Sign Up{" "}
