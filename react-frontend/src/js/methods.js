@@ -9,3 +9,7 @@ exports.isSignedIn = () => {
 exports.validateUsername = username => {
 return username.match(/[@<>'";,:\\]/gi)
 }
+
+exports.validateEmail = email => {
+  return email.test(/^\w+@\w+\.\w+$/gi)
+}
