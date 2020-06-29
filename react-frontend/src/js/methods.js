@@ -20,3 +20,16 @@ return username.match(/[@<>'";,:\\]/gi)
 exports.validateEmail = email => {
   return /^\w+@\w+\.\w+(\.\w+)?$/gi.test(email)
 }
+
+exports.signOut = (next) => {
+  if(typeof window !== undefined)
+  {
+    window.sessionStorage.removeItem("user")
+    next();
+    return fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signout`, {
+      credentials : 'include',
+      mode : 'cors'
+    })
+    .catch(err => console.log(err))
+  }
+}
