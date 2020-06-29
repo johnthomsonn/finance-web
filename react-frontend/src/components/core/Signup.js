@@ -16,22 +16,42 @@ const Signup = props => {
   const handleInput = name => evt => {
     const change = evt.target.value;
 
-    const usernameValidation = validateUsername(change);
-    // if usernameValidation is null then the input is valid.
-    let newInput = {...input};
-    if (usernameValidation == null) {
-      newInput = {...newInput, error : ""}
-    } else {
-      newInput = {...newInput, error: "Username cannot contain " + usernameValidation}
-    }
-    newInput = {...newInput, [name] : change};
-    setInput(newInput);
+
+    let validUsername = false;
+    let validEmail = false;
+    let validPassword = false;
+
+    if( name === "username")
+      validUsername = isValidUsername(name, change);
+    else if(name === "email")
+      validEmail = false
+    else if(name ==="confirm")
+      validPassword = input.password === input.confirm
+
+
+
   };
 
   const submitSignup = evt => {
     evt.preventDefault();
     alert("submitted");
   };
+
+  const isValidUsername =  (name,username) => {
+    let isValid = false;
+    const usernameValidation = validateUsername(username);
+    // if usernameValidation is null then the input is valid.
+    let newInput = {...input};
+    if (usernameValidation == null) {
+      newInput = {...newInput, error : ""}
+      isValid = true;
+    } else {
+      newInput = {...newInput, error: "Username cannot contain " + usernameValidation.join("")};
+    }
+    newInput = {...newInput, [name] : username};
+    setInput(newInput);
+    return isValid;
+  }
 
   if (isSignedIn()) {
     return <Redirect to="/" />;
