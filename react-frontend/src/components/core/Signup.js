@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import NavBar from '../navbar/Navbar'
 import {Redirect} from "react-router-dom";
 import "./Signup.css";
 import {isSignedIn, validateUsername, validateEmail} from "../../js/methods";
@@ -127,17 +128,21 @@ const Signup = props => {
   }
 
 
-  if (isSignedIn()) {
-    return <Redirect to="/" />;
-  }
 
   if(input.redirectToProfile)
   {
     return <Redirect to={`/${input.username}`} />
   }
 
+
+    if (isSignedIn()) {
+      return <Redirect to="/" />;
+    }
+
   return (
     <>
+
+    <NavBar {...props}/>
       <div className="signupBackground">
         <div className="signup">
           <h1> Sign Up </h1>

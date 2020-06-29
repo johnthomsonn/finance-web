@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import Footer from './Footer'
-
+import NavBar from '../navbar/Navbar'
 import './Home.css'
 
 //todo:
@@ -12,6 +12,7 @@ const Home = props => {
 
   return (<>
 
+    <NavBar {...props}/>
 
 
     <header>
