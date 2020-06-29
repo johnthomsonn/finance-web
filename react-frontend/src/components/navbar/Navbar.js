@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+
 import './Navbar.css'
-import {Link} from 'react-router-dom'
-import {isSignedIn} from '../../js/methods'
+import {Link, Redirect} from 'react-router-dom'
+import {isSignedIn, signOut} from '../../js/methods'
 
 const Navbar = props => {
 
+const [signedIn, setSignedIn] = useState(false)
+useEffect(() => checkIfSignedIn())
+
+const checkIfSignedIn =() => {
+  setSignedIn(isSignedIn())
+}
 
 return (<>
   <nav className="navbar navbar-expand-md bg-dark container-fluid" >
@@ -16,7 +23,7 @@ return (<>
       <li className="nav-item">
         <Link to="/" className="nav-link"> Home </Link>
       </li>
-      {isSignedIn() && (<li className="nav-item">
+      {signedIn && (<li className="nav-item">
         <Link to="/" className="nav-link"> USername </Link>
       </li>)}
 
@@ -28,7 +35,7 @@ return (<>
 
     <div className="collapse navbar-collapse" id="navCollapse">
     <ul className="navbar-nav ml-auto">
-    { !isSignedIn() ? (<>
+    { !signedIn ? (<>
       <li className="nav-item">
         <Link to="/signup" className="nav-link"> Sign up </Link>
       </li>
@@ -37,7 +44,7 @@ return (<>
       </li>
     </>) : (
       <li className="nav-item">
-        <Link to="/signout" className="nav-link"> Sign out</Link>
+        <Link to="/" className="nav-link" onClick={() => signOut(() => props.history.push("/"))}> Sign out</Link>
       </li>
     )}
     </ul>
