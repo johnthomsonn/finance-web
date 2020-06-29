@@ -1,35 +1,49 @@
 import React, {useState} from "react";
 import {Redirect} from "react-router-dom";
 import "./Signup.css";
-import {isSignedIn, validateUsername} from "../../js/methods";
+import {isSignedIn, validateUsername, validateEmail} from "../../js/methods";
 
 const Signup = props => {
+
+  //state
   const [input, setInput] = useState({
     username: "",
     email: "",
     password: "",
-    confirm: "",
-    error: "",
-    valid : false
+    confirm: ""
   });
+  const [error, setError] = useState("")
+  const [valid, setValid] = useState(false)
+  const [validState, setValidState] = useState({
+    username : false,
+    email : false,
+    password : false
+  })
 
   const handleInput = name => evt => {
     const change = evt.target.value;
+    //set the new input
+    setInput({...input, [name] : change});
 
-
-    let validUsername = false;
-    let validEmail = false;
-    let validPassword = false;
+    let validInputs = false;
 
     if( name === "username")
-      validUsername = isValidUsername(name, change);
+      setValidState({...validState, username : isValidUsername(change)});
     else if(name === "email")
-      validEmail = false
-    else if(name ==="confirm")
-      validPassword = input.password === input.confirm
+      setValidState({...validState, email : isValidEmail(change)});
+    else if(name ==="confirm"){
+
+      setValidState({...validState, password : input.password.length != 0 && input.password === input.confirm});
+      alert( input.password === input.confirm)
+    }
 
 
+    if(validState.username && validState.password && validState.email)
+      validInputs = true;
 
+
+      //set valid or not
+      setValid(validInputs)
   };
 
   const submitSignup = evt => {
@@ -37,19 +51,37 @@ const Signup = props => {
     alert("submitted");
   };
 
-  const isValidUsername =  (name,username) => {
+  const isValidUsername =  username => {
     let isValid = false;
+    //will return an array of invalid chars if any match or null if nothing matches (We want null)
     const usernameValidation = validateUsername(username);
     // if usernameValidation is null then the input is valid.
-    let newInput = {...input};
+    let newInputError = "";
     if (usernameValidation == null) {
-      newInput = {...newInput, error : ""}
+      newInputError = "";
       isValid = true;
     } else {
-      newInput = {...newInput, error: "Username cannot contain " + usernameValidation.join("")};
+      newInputError = "Username cannot contain " + usernameValidation.join("");
     }
-    newInput = {...newInput, [name] : username};
-    setInput(newInput);
+    setError(newInputError);
+    return isValid;
+  }
+
+  const isValidEmail = email => {
+    let isValid = false;
+    // returns true or false if whole regex matches
+    const emailValidation = validateEmail(email);
+    let newInputError = "";
+    if(emailValidation)
+    {
+      newInputError = "";
+      isValid = true;
+    }
+    else
+    {
+      newInputError = "Invalid email";
+    }
+    setError(newInputError);
     return isValid;
   }
 
@@ -127,15 +159,15 @@ const Signup = props => {
 
             <div
               className="alert alert-danger"
-              style={{display: input.error.length ? "" : "none"}}
+              style={{display: error.length ? "" : "none"}}
             >
-              {input.error}
+              {error}
             </div>
 
             <button
               type="submit"
               className="btn btn-raised submit-button"
-              style={{display: input.valid ? "" : "none"}}
+              style={{display: valid ? "" : "none"}}
             >
               {" "}
               Sign Up{" "}
