@@ -11,5 +11,5 @@ return username.match(/[@<>'";,:\\]/gi)
 }
 
 exports.validateEmail = email => {
-  return email.test(/^\w+@\w+\.\w+$/gi)
+  return /^\w+@\w+\.\w+$/gi.test(email)
 }
