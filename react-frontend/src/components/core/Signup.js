@@ -10,7 +10,8 @@ const Signup = props => {
     username: "",
     email: "",
     password: "",
-    confirm: ""
+    confirm: "",
+    redirectToProfile : false
   });
   const [error, setError] = useState("")
   const [showSubmit, setShowSubmit] = useState(false)
@@ -41,9 +42,9 @@ const Signup = props => {
     else if(name === "email")
       setValidState({...validState, email : isValidEmail(change)});
     else if(name ==="confirm")
-      setValidState({...validState, password : input.password.length != 0 && input.password === change});
+      setValidState({...validState, password : input.password.length>= 8 && input.password === change});
     else if(name ==="password")
-      setValidState({...validState, password : change.length != 0 && change === input.confirm});
+      setValidState({...validState, password : change.length >= 8 && change === input.confirm});
   }
 
   // checks to see if user input is valid by checking the valid state then sets the showSubmit state
@@ -51,9 +52,43 @@ const Signup = props => {
       setShowSubmit((validState.username && validState.password && validState.email) ? true : false)
   }
 
+  //id we get this far then all input is valid
   const submitSignup = evt => {
     evt.preventDefault();
-    alert("submitted");
+
+    const {username, password, email, confirm} = input;
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
+      method : "POST",
+      mode : "cors",
+      headers : {
+        Accept : "application/json",
+        "Content-Type" : "application/json"
+      },
+      body : JSON.stringify({
+        username,
+        email,
+        password,
+        confirm
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.error)
+      {
+        setError(data.error);
+      }
+      else
+      {
+        if(typeof window !== undefined)
+        {
+          window.sessionStorage.setItem("user", JSON.stringify(data));
+          setInput({...input, redirectToProfile : true});
+        }
+      }
+    })
+    .catch(err => console.log(err))
+
   };
 
   const isValidUsername =  username => {
@@ -90,8 +125,14 @@ const Signup = props => {
     return isValid;
   }
 
+
   if (isSignedIn()) {
     return <Redirect to="/" />;
+  }
+
+  if(input.redirectToProfile)
+  {
+    return <Redirect to={`/${input.username}`} />
   }
 
   return (
@@ -145,6 +186,7 @@ const Signup = props => {
                 value={input.password}
                 onChange={handleInput("password")}
               />
+              <span className="bmd-help"> Password must have a minimum of 8 characters </span>
             </div>
 
             <div className="form-group">
