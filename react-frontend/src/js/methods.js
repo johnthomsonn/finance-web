@@ -1,7 +1,7 @@
 exports.isSignedIn = () => {
 
   const allCookies = document.cookie.split(';');
-  const isLogged = undefined;
+  let isLogged = undefined;
   allCookies.forEach(cookieStr => {
     const cookies = cookieStr.split('=');
     if(cookies[0] == "localToken")
