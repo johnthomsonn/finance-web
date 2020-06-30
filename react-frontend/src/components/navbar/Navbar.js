@@ -24,7 +24,7 @@ return (<>
         <Link to="/" className="nav-link"> Home </Link>
       </li>
       {signedIn && (<li className="nav-item">
-        <Link to="/" className="nav-link"> USername </Link>
+        <Link to="/" className="nav-link"> {signedIn ? `${JSON.parse(window.sessionStorage.getItem("user")).username}`  : "not signed in" } </Link>
       </li>)}
 
     </ul>
