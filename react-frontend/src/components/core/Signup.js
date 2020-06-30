@@ -84,7 +84,7 @@ const Signup = props => {
       {
         if(typeof window !== undefined)
         {
-          window.sessionStorage.setItem("user", JSON.stringify(data));
+          window.sessionStorage.setItem("user", JSON.stringify(data.user));
           setInput({...input, redirectToProfile : true});
         }
       }
