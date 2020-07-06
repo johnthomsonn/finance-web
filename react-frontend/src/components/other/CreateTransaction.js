@@ -78,6 +78,7 @@ const CreateTransaction = props => {
                 <select name="category" style={{ width: "70px" }}>
                     {transactionCategories.map((t, i) => <option key={i} value={t}>{t}</option>)}
                 </select>
+                <button type="submit" > Add Transaction </button>
             </form>
         </div>
     </>)

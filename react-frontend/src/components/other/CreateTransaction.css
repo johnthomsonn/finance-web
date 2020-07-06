@@ -1,3 +1,10 @@
+.create-transaction-div {
+  background-color: inherit;
+  padding: 0.5%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 10px;
+}
+
 .create-transaction-div h5 {
   text-align: center;
   text-decoration: underline;
@@ -10,6 +17,12 @@
 .create-transaction-div form input {
   margin-left: 15px;
   width: 120px;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
+.create-transaction-div form input:focus {
+  outline: none;
 }
 
 .create-transaction-div form select {
@@ -18,4 +31,17 @@
 
 .create-transaction-div form select:hover {
   cursor: pointer;
+}
+
+.create-transaction-div form button {
+  margin-left: 15px;
+  border: none;
+  background-color: #42413f;
+  color: white;
+}
+
+.create-transaction-div form button:hover {
+  background-color: black;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
