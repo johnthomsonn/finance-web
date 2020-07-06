@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import NavBar from '../navbar/Navbar'
 import "./Signin.css"
-import { isValidUsername, isValidEmail } from '../../js/methods'
+import { isSignedIn } from '../../js/methods'
 
 const Signin = props => {
 
@@ -40,12 +41,52 @@ const Signin = props => {
 
   const submitSignIn = evt => {
     evt.preventDefault();
+
+    const { unique, password } = input;
+
+    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signin`, {
+      method: "POST",
+      mode: "cors",
+      credentials: 'include',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        unique,
+        password
+      })
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          setError(data.error);
+        }
+        else {
+          if (typeof window !== undefined) {
+            window.sessionStorage.setItem("user", JSON.stringify(data.user));
+            setInput({ ...input, redirectToProfile: true });
+          }
+        }
+      })
+      .catch(err => console.log(err))
+
   }
 
   const shouldSubmitButtonAppear = () => {
     setShowSubmit((validState.unique && validState.password) ? true : false)
   }
 
+  if (input.redirectToProfile) {
+    const username = JSON.parse(window.sessionStorage.getItem("user")).username;
+    return <Redirect to={`/${username}`} />
+  }
+
+
+  if (isSignedIn()) {
+    const username = JSON.parse(window.sessionStorage.getItem("user")).username;
+    return <Redirect to={`/${username}`} />;
+  }
 
   return (<>
 
