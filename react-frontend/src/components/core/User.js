@@ -20,13 +20,15 @@ const User = props => {
         <SetMonth {...props} />
       </div>
 
+      <div class="create-transaction">
+        <CreateTransaction {...props} />
+      </div>
+
       <div class="month-overall">
         <MonthOverall {...props} />
       </div>
 
-      <div class="create-transaction">
-        <CreateTransaction {...props} />
-      </div>
+
 
       <div class="all-transactions">
         <AllTransactions {...props} />
