@@ -3,6 +3,7 @@
 /react-frontend/node_modules/
 *.scss
 *.css.map
+.vscode
 
 package-lock.json
 # Logs
