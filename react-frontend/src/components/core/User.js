@@ -4,6 +4,7 @@ import SetMonth from '../other/SetMonth'
 import MonthOverall from '../other/MonthOverall'
 import CreateTransaction from '../other/CreateTransaction'
 import AllTransactions from '../other/AllTransactions'
+import './User.css'
 
 const User = props => {
 
