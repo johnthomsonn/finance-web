@@ -1,0 +1,21 @@
+.create-transaction-div h5 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.create-transaction-div form {
+  margin-top: 20px;
+}
+
+.create-transaction-div form input {
+  margin-left: 15px;
+  width: 120px;
+}
+
+.create-transaction-div form select {
+  margin-left: 15px;
+}
+
+.create-transaction-div form select:hover {
+  cursor: pointer;
+}
