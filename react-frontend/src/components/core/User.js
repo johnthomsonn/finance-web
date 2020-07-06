@@ -5,6 +5,7 @@ import MonthOverall from '../other/MonthOverall'
 import CreateTransaction from '../other/CreateTransaction'
 import AllTransactions from '../other/AllTransactions'
 import './User.css'
+import Footer from './Footer'
 
 const User = props => {
 
@@ -13,17 +14,27 @@ const User = props => {
   return (<>
     <NavBar {...props} />
 
-    <div class="container-fluid">
+    <div class="container-fluid user-container">
 
-      <SetMonth {...props} />
+      <div class="set-month" >
+        <SetMonth {...props} />
+      </div>
 
-      <MonthOverall {...props} />
+      <div class="month-overall">
+        <MonthOverall {...props} />
+      </div>
 
-      <CreateTransaction {...props} />
+      <div class="create-transaction">
+        <CreateTransaction {...props} />
+      </div>
 
-      <AllTransactions {...props} />
+      <div class="all-transactions">
+        <AllTransactions {...props} />
+      </div>
 
     </div>
+
+    <Footer />
 
   </>)
 }
