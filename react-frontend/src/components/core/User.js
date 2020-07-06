@@ -12,13 +12,17 @@ const User = props => {
   return (<>
     <NavBar {...props} />
 
-    <SetMonth {...props} />
+    <div class="container-fluid">
 
-    <MonthOverall {...props} />
+      <SetMonth {...props} />
 
-    <CreateTransaction {...props} />
+      <MonthOverall {...props} />
 
-    <AllTransactions {...props} />
+      <CreateTransaction {...props} />
+
+      <AllTransactions {...props} />
+
+    </div>
 
   </>)
 }
