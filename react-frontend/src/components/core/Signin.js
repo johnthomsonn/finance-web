@@ -1,35 +1,62 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import NavBar from '../navbar/Navbar'
 import "./Signin.css"
+import { isValidUsername, isValidEmail } from '../../js/methods'
 
 const Signin = props => {
 
   const [error, setError] = useState("")
   const [input, setInput] = useState({
-    unique : "",
-    password : ""
+    unique: "",
+    password: "",
+    redirectToProfile: false
   })
   const [showSubmit, setShowSubmit] = useState(false)
+  const [validState, setValidState] = useState({
+    unique: false,
+    password: false
+  })
 
-  const handleInput = name => event => {
+  useEffect(() => shouldSubmitButtonAppear(), [validState])
 
+  const setInputState = (name, change) => {
+
+    if (name === "unique")
+      setValidState({ ...validState, unique: change.length > 0 })
+
+    if (name === "password")
+      setValidState({ ...validState, password: change.length >= 8 });
   }
 
-  const submitSignIn = () => {
 
+  const handleInput = name => event => {
+    const change = event.target.value;
+    //set the new input
+    setInput({ ...input, [name]: change });
+
+    //sets the input state to be valid or not depending on user input
+    setInputState(name, change)
+  }
+
+  const submitSignIn = evt => {
+    evt.preventDefault();
+  }
+
+  const shouldSubmitButtonAppear = () => {
+    setShowSubmit((validState.unique && validState.password) ? true : false)
   }
 
 
   return (<>
 
-    <NavBar {...props}/>
+    <NavBar {...props} />
 
     <div className="signinBackground">
       <div className="signin">
         <h1> Sign In </h1>
         <form onSubmit={submitSignIn}>
           <div className="form-group">
-            <label for="username" className="bmd-label-floating">
+            <label for="unique" className="bmd-label-floating">
               Username or Email
             </label>
             <input
@@ -59,7 +86,7 @@ const Signin = props => {
 
           <div
             className="alert alert-danger"
-            style={{display: error.length ? "" : "none"}}
+            style={{ display: error.length ? "" : "none" }}
           >
             {error}
           </div>
@@ -67,10 +94,9 @@ const Signin = props => {
           <button
             type="submit"
             className="btn btn-raised submit-button"
-            style={{display: showSubmit ? "" : "none"}}
+            style={{ display: showSubmit ? "" : "none" }}
           >
-            {" "}
-            Sign Up{" "}
+            Sign In
           </button>
         </form>
       </div>
