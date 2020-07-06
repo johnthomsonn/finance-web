@@ -3,23 +3,39 @@ import './CreateTransaction.css'
 import { split } from 'lodash'
 import { transactionCategories } from "./Categories"
 
+//TODO: Make sure that the category matches the type ie you cannot set salary and expenditure
+
 const CreateTransaction = props => {
 
     const [input, setInput] = useState({
         amount: "",
-        description: "",
-        day: "",
-        type: "",
-        category: ""
+        description: ""
     })
+
+    const [error, setError] = useState("")
 
 
     const handleInputChange = name => event => {
-
+        const change = event.target.value
+        setInput({ ...input, [name]: change })
+        if (error)
+            setError("")
     }
 
-    const submitCreateTransaction = (e) => {
+    const submitCreateTransaction = e => {
         e.preventDefault();
+        if (input.amount > 0 && input.description.length > 0) {
+            createTransaction();
+        }
+        else {
+            setError("Please ensure amount is greater than 0 and the description field is not empty")
+        }
+    }
+
+    const createTransaction = () => {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction`, {
+
+        })
     }
 
     const days = () => {
@@ -62,11 +78,14 @@ const CreateTransaction = props => {
     }
 
     return (<>
+        <div className="alert alert-danger" style={{ display: error.length > 0 ? "" : "none", position: "absolute", top: "10%", borderRadius: "10px" }}>
+            {error}
+        </div>
         <div className="create-transaction-div">
             <h5>Add New Transaction</h5>
             <form onSubmit={submitCreateTransaction}>
-                <input type="number" value={input.amount} placeholder="Amount:" />
-                <input type="text" value={input.description} placeholder="Description" autoComplete="off" style={{ width: "300px" }} />
+                <input type="number" value={input.amount} placeholder="Amount:" onChange={handleInputChange("amount")} />
+                <input type="text" value={input.description} placeholder="Description" autoComplete="off" style={{ width: "300px" }} onChange={handleInputChange("description")} />
                 <select name="day" style={{ width: "30px" }}>
                     {days().map(day => <option key={day} value={day}>{day}</option>)}
                 </select>
