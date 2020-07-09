@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router();
 
-const { addTransaction, getTransactionById, deleteTransaction, getAllTransactionsForMonth } = require('../controllers/transactioncontroller')
-const { getTransactionCreationErrors, transactionValidation, getTransactionCategories } = require('../validation/transactionvalidation')
+const { addTransaction, getTransactionById, deleteTransaction, getAllTransactionsForMonth, getTransactionCategories } = require('../controllers/transactioncontroller')
+const { getTransactionCreationErrors, transactionValidation } = require('../validation/transactionvalidation')
 
 router.post("/", getTransactionCreationErrors, transactionValidation, addTransaction)
 router.delete("/:transactionId", deleteTransaction)
