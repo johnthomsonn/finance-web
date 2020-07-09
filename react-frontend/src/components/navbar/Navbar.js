@@ -52,7 +52,7 @@ const Navbar = props => {
             </li>
           </>) : (
               <li className="nav-item">
-                <Link to="/" className="nav-link" onClick={() => signOut(() => props.history.push("/"))}> Sign out</Link>
+                <Link to="/" className="nav-link" onClick={() => signOut(() => <Redirect to="/" />)}> Sign out</Link>
               </li>
             )}
         </ul>

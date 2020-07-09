@@ -29,7 +29,7 @@ exports.needAuthentication = async (req, res, next) => {
       const isValidAuth = jwt.verify(authCookie, process.env.JWT_SECRET);
       if (!isValidAuth) {
         //invalid token so just clear the cookie
-        res.cookie("financeToken", "", {maxAge: 0});
+        res.cookie("financeToken", "", { maxAge: 0 });
         return res.status(400).json({
           error: "Invalid authentication credentials."
         });
@@ -65,8 +65,8 @@ exports.signup = async (req, res) => {
   }
 
   try {
-    const foundEmail = await User.findOne({email});
-    const foundUsername = await User.findOne({username});
+    const foundEmail = await User.findOne({ email });
+    const foundUsername = await User.findOne({ username });
 
     if (foundUsername || foundEmail) {
       return res.status(409).json({
@@ -99,9 +99,9 @@ exports.signup = async (req, res) => {
 
         res.cookie("financeToken", token, cookieOptions);
 
-        res.cookie("localToken", true, {expires:0, sameSite:"Strict"})
+        res.cookie("localToken", true, { expires: 0, sameSite: "Strict" })
 
-        const {_id, email, username} = savedUser;
+        const { _id, email, username } = savedUser;
         return res.status(201).json({
           user: {
             _id,
@@ -123,9 +123,9 @@ exports.signin = async (req, res) => {
 
   try {
     if (/@/.test(unique)) {
-      foundUser = await User.findOne({email: unique});
+      foundUser = await User.findOne({ email: unique });
     } else {
-      foundUser = await User.findOne({username: unique});
+      foundUser = await User.findOne({ username: unique });
     }
     if (!foundUser || foundUser === undefined) {
       return res.status(400).json({
@@ -154,8 +154,8 @@ exports.signin = async (req, res) => {
         };
 
         res.cookie("financeToken", token, cookieOptions);
-res.cookie("localToken", true, {expires:0, sameSite:"Strict"})
-        const {_id, email, username} = foundUser;
+        res.cookie("localToken", true, { expires: 0, sameSite: "Strict" })
+        const { _id, email, username } = foundUser;
         return res.status(201).json({
           user: {
             _id,
@@ -171,8 +171,8 @@ res.cookie("localToken", true, {expires:0, sameSite:"Strict"})
 };
 
 exports.signout = (req, res) => {
-  res.cookie("financeToken", "", {maxAge: 0});
-  res.cookie("localToken", "", {maxAge : 0})
+  res.cookie("financeToken", "", { maxAge: 0 });
+  res.cookie("localToken", "", { maxAge: 0 })
   return res.json({
     message: "Signed out"
   });
@@ -181,35 +181,32 @@ exports.signout = (req, res) => {
 //delete transactions from transactions table
 //delete user
 //redirect to signout to remove cookies and sign out
-exports.deleteUser = async ( req,res) => {
+exports.deleteUser = async (req, res) => {
   const transactions = req.user.transactions
 
-try{
+  try {
 
-  const deletePromises = await transactions.map( trans => Transaction.findByIdAndDelete(trans._id))
-  await Promise.all(deletePromises)
+    const deletePromises = await transactions.map(trans => Transaction.findByIdAndDelete(trans._id))
+    await Promise.all(deletePromises)
 
-  const deletedUser = await User.findByIdAndDelete(req.user._id)
-  if(!deletedUser || deletedUser == undefined )
-  {
-    cLog.error("Trying to delete user")
+    const deletedUser = await User.findByIdAndDelete(req.user._id)
+    if (!deletedUser || deletedUser == undefined) {
+      cLog.error("Trying to delete user")
+      return res.status(400).json({
+        error: "Error trying to delete the user"
+      })
+    }
+    else {
+      return res.json({
+        message: "User " + req.user.username + " deleted."
+      })
+    }
+  }
+  catch (err) {
+    cLog.error("Trying to delete user: " + err)
     return res.status(400).json({
-      error: "Error trying to delete the user"
+      error: "Caught error trying to delete user."
     })
   }
-  else
-  {
-    return res.json({
-      message : "User " + req.user.username + " deleted."
-    })
-  }
-}
-catch(err)
-{
-  cLog.error("Trying to delete user: " + err)
-  return res.status(400).json({
-    error : "Caught error trying to delete user."
-  })
-}
 
 }
