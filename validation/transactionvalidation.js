@@ -1,5 +1,5 @@
 const { check, validationResult } = require("express-validator");
-const { transactionCategories } = require('../models/transactioncategories')
+const { incomeCategories, expenditureCategories } = require('../models/transactioncategories')
 const cLog = require('../utils/Custom-Logging')
 
 exports.getTransactionCreationErrors = [
@@ -22,7 +22,7 @@ exports.getTransactionCreationErrors = [
     .withMessage("Transaction type must be income or expenditure"),
 
   check('category')
-    .custom(value => transactionCategories.includes(value))
+    .custom(value => incomeCategories.includes(value) || expenditureCategories.includes(value))
     .withMessage("category must be one of " + transactionCategories),
 
   check('date')
