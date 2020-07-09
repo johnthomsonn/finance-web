@@ -23,7 +23,17 @@ exports.getTransactionCreationErrors = [
 
   check('category')
     .custom(value => incomeCategories.includes(value) || expenditureCategories.includes(value))
-    .withMessage("category must be one of " + transactionCategories),
+    .withMessage("category must be one of " + incomeCategories + " or " + expenditureCategories),
+
+  check('transactionType')
+    .custom((value, { req }) => {
+      if (value === 'income' || value === 'Income') {
+        return incomeCategories.includes(req.body.category)
+      }
+      else
+        return expenditureCategories.includes(req.body.category)
+    })
+    .withMessage("Invalid category for transaction type"),
 
   check('date')
     .custom(date => {
