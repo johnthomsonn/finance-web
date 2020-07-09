@@ -1,1 +1,2 @@
-exports.transactionCategories = ['bills', 'salary', 'food', 'other', 'bad']
+exports.incomeCategories = ['salary', 'other']
+exports.expenditureCategories = ['bills', 'food', 'other', 'bad']
