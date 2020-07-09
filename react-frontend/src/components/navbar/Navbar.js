@@ -12,8 +12,12 @@ const Navbar = props => {
 
   const checkIfSignedIn = () => {
     const isUserSignedIn = isSignedIn();
-    if (isUserSignedIn)
-      setUsername(JSON.parse(window.sessionStorage.getItem("user")).username);
+    if (isUserSignedIn) {
+      const userJSON = JSON.parse(window.sessionStorage.getItem("user"));
+      if (userJSON)
+        setUsername(userJSON.username);
+    }
+
     setSignedIn(isUserSignedIn);
   }
 
