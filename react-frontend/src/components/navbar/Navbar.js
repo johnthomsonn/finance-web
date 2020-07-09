@@ -1,57 +1,61 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 import './Navbar.css'
-import {Link, Redirect} from 'react-router-dom'
-import {isSignedIn, signOut} from '../../js/methods'
+import { Link, Redirect } from 'react-router-dom'
+import { isSignedIn, signOut } from '../../js/methods'
 
 const Navbar = props => {
 
-const [signedIn, setSignedIn] = useState(false)
-useEffect(() => checkIfSignedIn())
+  const [signedIn, setSignedIn] = useState(false)
+  const [username, setUsername] = useState("")
+  useEffect(() => checkIfSignedIn())
 
-const checkIfSignedIn =() => {
-  setSignedIn(isSignedIn())
-}
+  const checkIfSignedIn = () => {
+    const isUserSignedIn = isSignedIn();
+    if (isUserSignedIn)
+      setUsername(JSON.parse(window.sessionStorage.getItem("user")).username);
+    setSignedIn(isUserSignedIn);
+  }
 
-return (<>
-  <nav className="navbar navbar-expand-md bg-dark container-fluid" >
+  return (<>
+    <nav className="navbar navbar-expand-md bg-dark container-fluid" >
 
-  <div className="navbar-brand">Finance Tracker</div>
+      <div className="navbar-brand">Finance Tracker</div>
 
 
-    <ul className="navbar-nav ">
-      <li className="nav-item">
-        <Link to="/" className="nav-link"> Home </Link>
-      </li>
-      {signedIn && (<li className="nav-item">
-        <Link to="/" className="nav-link"> {signedIn ? `${JSON.parse(window.sessionStorage.getItem("user")).username}`  : "not signed in" } </Link>
-      </li>)}
+      <ul className="navbar-nav ">
+        <li className="nav-item">
+          <Link to="/" className="nav-link"> Home </Link>
+        </li>
+        {signedIn && (<li className="nav-item">
+          <Link to={`/${username}`} className="nav-link"> {signedIn && `${username}`} </Link>
+        </li>)}
 
-    </ul>
+      </ul>
 
-    <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navCollapse">
-      <span className="navbar-toggler-icon">button</span>
+      <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navCollapse">
+        <span className="navbar-toggler-icon">button</span>
       </button>
 
-    <div className="collapse navbar-collapse" id="navCollapse">
-    <ul className="navbar-nav ml-auto">
-    { !signedIn ? (<>
-      <li className="nav-item">
-        <Link to="/signup" className="nav-link"> Sign up </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/signin" className="nav-link"> Sign in </Link>
-      </li>
-    </>) : (
-      <li className="nav-item">
-        <Link to="/" className="nav-link" onClick={() => signOut(() => props.history.push("/"))}> Sign out</Link>
-      </li>
-    )}
-    </ul>
-    </div>
+      <div className="collapse navbar-collapse" id="navCollapse">
+        <ul className="navbar-nav ml-auto">
+          {!signedIn ? (<>
+            <li className="nav-item">
+              <Link to="/signup" className="nav-link"> Sign up </Link>
+            </li>
+            <li className="nav-item">
+              <Link to="/signin" className="nav-link"> Sign in </Link>
+            </li>
+          </>) : (
+              <li className="nav-item">
+                <Link to="/" className="nav-link" onClick={() => signOut(() => props.history.push("/"))}> Sign out</Link>
+              </li>
+            )}
+        </ul>
+      </div>
 
-  </nav>
-</>)
+    </nav>
+  </>)
 
 }
 
