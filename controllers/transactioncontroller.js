@@ -1,6 +1,7 @@
 const express = require("express");
 const cLog = require("../utils/Custom-Logging");
 const Transaction = require("../models/transactionmodel");
+const User = require("../models/usermodel")
 
 // this will check the transaction user id matches the logged in user id
 exports.getTransactionById = async (req, res, next, id) => {
@@ -53,49 +54,10 @@ exports.deleteTransaction = (req, res) => {
   );
 };
 
-//add Transaction using callback functions
-exports.addTransaction = (req, res) => {
-  cLog.debug("In new transaction")
-  const { description, amount, transactionType, category, date } = req.body;
 
-  const newTransaction = new Transaction({
-    description,
-    amount,
-    transactionType,
-    category,
-    user: req.user,
-    created: date
-  });
-  newTransaction.save((err, transactionDocument) => {
-    if (err) {
-      cLog.error("Error saving transaction: " + err);
-      return res.status(400).json({
-        error: "Error when trying to save the new  transaction."
-      });
-    }
-    else {
-      const user = req.user;
-      user.transactions.push(transactionDocument);
-      user.save((err, userDocument) => {
-        if (err) {
-          cLog.error("Error saving user: " + err);
-          return res.status(400).json({
-            error: "Error when trying to save the user"
-          });
-        }
-        else {
-          return res.status(201).json({
-            message: "transaction " + transactionDocument.description + " saved.",
-            transaction: transactionDocument
-          });
-        }
-      })
-    }
-  })
-}
 
 //add transaction using async await
-exports.addTransactionn = async (req, res) => {
+exports.addTransaction = async (req, res) => {
   try {
     const { description, amount, transactionType, category, date } = req.body;
 
@@ -111,8 +73,9 @@ exports.addTransactionn = async (req, res) => {
 
     if (savedTransaction != undefined) {
       const user = req.user;
-      user.transactions.push(savedTransaction);
-      const savedUser = await user.save();
+      //user.transactions.push(savedTransaction);
+      //const savedUser = await user.save();
+      const savedUser = await User.updateOne({ _id: user._id }, { $push: { transactions: savedTransaction } });
       if (savedUser != undefined) {
         return res.status(201).json({
           message: "transaction " + savedTransaction.description + " saved.",
