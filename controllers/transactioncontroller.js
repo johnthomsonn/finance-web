@@ -24,7 +24,7 @@ exports.getTransactionById = async (req, res, next, id) => {
 
 exports.deleteTransaction = (req, res) => {
   Transaction.findOneAndDelete(
-    {_id: req.transaction._id},
+    { _id: req.transaction._id },
     (err, removedTransaction) => {
       if (err || !removedTransaction) {
         return res.status(400).json({
@@ -55,7 +55,7 @@ exports.deleteTransaction = (req, res) => {
 
 exports.addTransaction = async (req, res) => {
   try {
-    const {description, amount, transactionType, category, date} = req.body;
+    const { description, amount, transactionType, category, date } = req.body;
 
     const newTransaction = await new Transaction({
       description,
@@ -63,7 +63,7 @@ exports.addTransaction = async (req, res) => {
       transactionType,
       category,
       user: req.user,
-      created : date
+      created: date
     });
     const savedTransaction = await newTransaction.save();
     if (savedTransaction != undefined) {
@@ -73,7 +73,7 @@ exports.addTransaction = async (req, res) => {
       if (savedUser != undefined) {
         return res.status(201).json({
           message: "transaction " + savedTransaction.description + " saved.",
-          transaction_id: savedTransaction._id
+          transaction: savedTransaction
         });
       }
     }
@@ -88,10 +88,10 @@ exports.addTransaction = async (req, res) => {
   }
 };
 
-exports.getAllTransactionsForMonth = (req,res) => {
+exports.getAllTransactionsForMonth = (req, res) => {
   const [month, year] = req.month.split("-")
   const transactions = req.user.transactions.filter(trans => {
-    return "20"+year == trans.created.getFullYear() && month == trans.created.getMonth()+1
+    return "20" + year == trans.created.getFullYear() && month == trans.created.getMonth() + 1
   })
   return res.json({
     transactions
