@@ -29,7 +29,6 @@ exports.getTransactionCreationErrors = [
     .custom(date => {
       const [year, month, day] = date.split("-")
       const daysInMonth = getMonthDaysFromString(month)
-      cLog.debug(day)
       if (year >= 2020)
         if (month >= 1 && month <= 12)
           if (day >= 1 && day <= daysInMonth)
