@@ -2,6 +2,7 @@ const express = require("express");
 const cLog = require("../utils/Custom-Logging");
 const Transaction = require("../models/transactionmodel");
 const User = require("../models/usermodel")
+const { incomeCategories, expenditureCategories } = require("../models/transactioncategories")
 
 // this will check the transaction user id matches the logged in user id
 exports.getTransactionById = async (req, res, next, id) => {
@@ -101,5 +102,12 @@ exports.getAllTransactionsForMonth = (req, res) => {
   })
   return res.json({
     transactions
+  })
+}
+
+exports.getTransactionCategories = (req, res) => {
+  return res.status(200).json({
+    income: incomeCategories,
+    expenditure: expenditureCategories
   })
 }
