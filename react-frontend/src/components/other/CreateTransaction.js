@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './CreateTransaction.css'
 import { split } from 'lodash'
 import { transactionCategories } from "./Categories"
@@ -13,6 +13,21 @@ const CreateTransaction = props => {
     })
 
     const [error, setError] = useState("")
+
+    useEffect(() => {
+        preSelectDay();
+        preSelectMonth()
+    }, [props.month])
+
+    const preSelectDay = () => {
+        const day = new Date(Date.now()).getDate()
+        document.getElementById("day").selectedIndex = day - 1;
+    }
+
+    const preSelectMonth = () => {
+        const monthNumber = new Date(Date.now()).getMonth();
+        document.getElementById("month").selectedIndex = monthNumber;
+    }
 
 
     const handleInputChange = name => event => {
@@ -135,7 +150,7 @@ const CreateTransaction = props => {
                 </select>
 
                 <select name="month" id="month" >
-                    {getMonthStrings.map((month, index) => <option id={index} value={month} >{month}</option>)}
+                    {getMonthStrings.map((month, index) => <option key={index} value={month}  >{month} </option>)}
                 </select>
 
                 <input type="text" value={props.month.split(" ")[1]} disabled style={{ width: "50px" }} />
