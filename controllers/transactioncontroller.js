@@ -53,7 +53,49 @@ exports.deleteTransaction = (req, res) => {
   );
 };
 
-exports.addTransaction = async (req, res) => {
+//add Transaction using callback functions
+exports.addTransaction = (req, res) => {
+  cLog.debug("In new transaction")
+  const { description, amount, transactionType, category, date } = req.body;
+
+  const newTransaction = new Transaction({
+    description,
+    amount,
+    transactionType,
+    category,
+    user: req.user,
+    created: date
+  });
+  newTransaction.save((err, transactionDocument) => {
+    if (err) {
+      cLog.error("Error saving transaction: " + err);
+      return res.status(400).json({
+        error: "Error when trying to save the new  transaction."
+      });
+    }
+    else {
+      const user = req.user;
+      user.transactions.push(transactionDocument);
+      user.save((err, userDocument) => {
+        if (err) {
+          cLog.error("Error saving user: " + err);
+          return res.status(400).json({
+            error: "Error when trying to save the user"
+          });
+        }
+        else {
+          return res.status(201).json({
+            message: "transaction " + transactionDocument.description + " saved.",
+            transaction: transactionDocument
+          });
+        }
+      })
+    }
+  })
+}
+
+//add transaction using async await
+exports.addTransactionn = async (req, res) => {
   try {
     const { description, amount, transactionType, category, date } = req.body;
 
@@ -66,6 +108,7 @@ exports.addTransaction = async (req, res) => {
       created: date
     });
     const savedTransaction = await newTransaction.save();
+
     if (savedTransaction != undefined) {
       const user = req.user;
       user.transactions.push(savedTransaction);
@@ -77,9 +120,9 @@ exports.addTransaction = async (req, res) => {
         });
       }
     }
-    return res.status(400).json({
-      error: "Error when trying to add the transaction."
-    });
+    // return res.status(400).json({
+    //   error: "Error when trying to add the transaction."
+    // });
   } catch (err) {
     cLog.error("Error adding transaction: " + err);
     return res.status(400).json({
