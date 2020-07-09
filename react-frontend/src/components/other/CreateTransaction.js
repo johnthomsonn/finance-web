@@ -3,8 +3,6 @@ import './CreateTransaction.css'
 import { split } from 'lodash'
 import { transactionCategories } from "./Categories"
 
-//TODO: Make sure that the category matches the type ie you cannot add salary and expenditure
-
 const CreateTransaction = props => {
 
     const [input, setInput] = useState({
@@ -14,10 +12,34 @@ const CreateTransaction = props => {
 
     const [error, setError] = useState("")
 
+    const [ttype, setType] = useState("Income")
+
+    const [incomeCategories, setIncomeCategories] = useState([])
+    const [expenditureCategories, setExpenditureCategories] = useState([])
+
     useEffect(() => {
         preSelectDay();
         preSelectMonth()
-    }, [props.month])
+    }, [props.month]);
+
+    useEffect(() => getCategories(), []);
+
+    const getCategories = () => {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction/types`, {
+            method: "GET",
+            mode: "cors",
+            credentials: 'include',
+            headers: {
+                Accept: "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                setIncomeCategories(data.income);
+                setExpenditureCategories(data.expenditure);
+            })
+            .catch(err => console.log(err))
+    }
 
     const preSelectDay = () => {
         const day = new Date(Date.now()).getDate()
@@ -134,6 +156,12 @@ const CreateTransaction = props => {
 
     const getMonthStrings = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+    const setCategoryType = t => {
+        const val = document.getElementById("type").value;
+        setType(val)
+    }
+
+
     return (<>
         <div className="alert alert-danger" style={{ display: error.length > 0 ? "" : "none", position: "absolute", top: "10%", borderRadius: "10px" }}>
             {error}
@@ -155,13 +183,15 @@ const CreateTransaction = props => {
 
                 <input type="text" value={props.month.split(" ")[1]} disabled style={{ width: "50px" }} />
 
-                <select name="type" id="type">
+                <select name="type" id="type" onChange={setCategoryType}>
                     <option value="Income" >Income</option>
                     <option value="Expenditure" >Expenditure</option>
                 </select>
 
                 <select name="category" style={{ width: "70px" }} id="category">
-                    {transactionCategories.map((t, i) => <option key={i} value={t}>{t}</option>)}
+                    {ttype === "Income" ? incomeCategories.map((t, i) => <option key={i} value={t}>{t}</option>)
+                        : expenditureCategories.map((t, i) => <option key={i} value={t}>{t}</option>)}
+
                 </select>
 
                 <button type="submit" > Add Transaction </button>
