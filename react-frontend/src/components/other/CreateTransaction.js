@@ -62,12 +62,20 @@ const CreateTransaction = props => {
                 }
                 else {
                     props.addTransaction(data.transaction);
+                    resetInputFields();
                 }
             })
             .catch(err => {
                 console.log(err);
                 setError(err);
             })
+    }
+
+    const resetInputFields = () => {
+        setInput({
+            amount: "",
+            description: ""
+        })
     }
 
     const days = () => {
