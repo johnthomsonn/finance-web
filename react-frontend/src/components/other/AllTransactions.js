@@ -25,7 +25,7 @@ const AllTransactions = props => {
                     <tbody>
                         {props.transactions.map((t, i) => {
                             return <Transaction key={i}
-                                id={i}
+                                id={i + 1}
                                 amount={t.amount}
                                 description={t.description}
                                 category={t.category}
