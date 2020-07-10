@@ -17,12 +17,27 @@ const CreateTransaction = props => {
     const [incomeCategories, setIncomeCategories] = useState([])
     const [expenditureCategories, setExpenditureCategories] = useState([])
 
+    const [currMonth, setCurrMonth] = useState("")
+
     useEffect(() => {
         preSelectDay();
         preSelectMonth()
     }, [props.month]);
 
+    useEffect(() => {
+        const months = getMonthStrings;
+        const currMonth = props.month.split(" ")[0];
+
+        const r = months.filter(m => m === currMonth)
+        setCurrMonth(r)
+
+    }, [props.month])
+
     useEffect(() => getCategories(), []);
+
+    const handleMonthChange = () => {
+        setCurrMonth(document.getElementById("month").value)
+    }
 
     const getCategories = () => {
         fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction/types`, {
@@ -163,6 +178,7 @@ const CreateTransaction = props => {
 
 
     return (<>
+
         <div className="alert alert-danger" style={{ display: error.length > 0 ? "" : "none", position: "absolute", top: "10%", borderRadius: "10px" }}>
             {error}
         </div>
@@ -177,11 +193,11 @@ const CreateTransaction = props => {
                     {days().map(day => <option key={day} value={day}>{day}</option>)}
                 </select>
 
-                <select name="month" id="month" >
+                <select name="month" id="month" value={currMonth} onChange={handleMonthChange}>
                     {getMonthStrings.map((month, index) => <option key={index} value={month}  >{month} </option>)}
                 </select>
 
-                <input type="text" value={props.month.split(" ")[1]} disabled style={{ width: "50px" }} />
+                <input type="text" value={props.month.split(" ")[1]} style={{ width: "50px" }} />
 
                 <select name="type" id="type" onChange={setCategoryType}>
                     <option value="Income" >Income</option>
