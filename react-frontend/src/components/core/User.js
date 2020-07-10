@@ -17,7 +17,6 @@ const User = props => {
 
   return (<>
     <NavBar {...props} />
-
     <div class="container-fluid user-container">
 
       <div class="set-month" >
