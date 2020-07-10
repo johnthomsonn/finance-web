@@ -47,9 +47,9 @@ const User = props => {
 
   return (<>
     <NavBar {...props} />
-    <div class="container-fluid user-container">
+    <div className="container-fluid user-container">
 
-      <div class="set-month" >
+      <div className="set-month" >
         <div
           className="alert alert-danger"
           style={{ display: error.length ? "" : "none" }}
@@ -59,17 +59,17 @@ const User = props => {
         <SetMonth {...props} updateMonth={updateSelectedMonth} month={month} />
       </div>
 
-      <div class="create-transaction">
+      <div className="create-transaction">
         <CreateTransaction {...props} addTransaction={addTransaction} month={month} />
       </div>
 
-      <div class="month-overall">
+      <div className="month-overall">
         <MonthOverall {...props} month={month} />
       </div>
 
 
 
-      <div class="all-transactions">
+      <div className="all-transactions">
         <AllTransactions {...props} month={month} transactions={transactions} />
       </div>
 
