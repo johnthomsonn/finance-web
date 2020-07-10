@@ -6,7 +6,6 @@ import CreateTransaction from '../other/CreateTransaction'
 import AllTransactions from '../other/AllTransactions'
 import './User.css'
 import Footer from './Footer'
-import { transform } from 'lodash'
 
 const User = props => {
 
