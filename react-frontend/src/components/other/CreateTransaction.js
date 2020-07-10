@@ -17,7 +17,10 @@ const CreateTransaction = props => {
     const [incomeCategories, setIncomeCategories] = useState([])
     const [expenditureCategories, setExpenditureCategories] = useState([])
 
-    const [currMonth, setCurrMonth] = useState("")
+    const [currMonth, setCurrMonth] = useState(props.month.split(" ")[0])
+    const [year, setYear] = useState(props.month.split(" ")[1])
+
+    const [currentDate, setCurrentDate] = useState(new Date(Date.now()).toLocaleString('default', { month: 'long', year: 'numeric' }))
 
     useEffect(() => {
         preSelectDay();
@@ -29,7 +32,7 @@ const CreateTransaction = props => {
         const currMonth = props.month.split(" ")[0];
 
         const r = months.filter(m => m === currMonth)
-        setCurrMonth(r)
+        setCurrMonth(r.toString())
 
     }, [props.month])
 
@@ -66,6 +69,10 @@ const CreateTransaction = props => {
         document.getElementById("month").selectedIndex = monthNumber;
     }
 
+    const handleYearChange = () => {
+        const year = document.getElementById("year").value;
+        setYear(year);
+    }
 
     const handleInputChange = name => event => {
         const change = event.target.value
@@ -85,12 +92,10 @@ const CreateTransaction = props => {
     }
 
     const createTransaction = () => {
-        const splitDate = props.month.split(" ");
         const type = document.getElementById("type").value;
         const category = document.getElementById("category").value;
         const day = document.getElementById("day").value;
-        const month = document.getElementById("month").value;
-        const date = splitDate[1] + "-" + getMonthNumber(month) + "-" + day;
+        const date = year + "-" + getMonthNumber(currMonth) + "-" + day;
         fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction`, {
             method: "POST",
             mode: "cors",
@@ -128,6 +133,7 @@ const CreateTransaction = props => {
             amount: "",
             description: ""
         })
+        setError("")
     }
 
     const days = () => {
@@ -177,6 +183,8 @@ const CreateTransaction = props => {
     }
 
 
+
+
     return (<>
 
         <div className="alert alert-danger" style={{ display: error.length > 0 ? "" : "none", position: "absolute", top: "10%", borderRadius: "10px" }}>
@@ -197,7 +205,10 @@ const CreateTransaction = props => {
                     {getMonthStrings.map((month, index) => <option key={index} value={month}  >{month} </option>)}
                 </select>
 
-                <input type="text" value={props.month.split(" ")[1]} style={{ width: "50px" }} />
+                <select type="text" id="year" value={year} onChange={handleYearChange} style={{ width: "50px" }} >
+                    <option value={currentDate.split(" ")[1]} >{currentDate.split(" ")[1]}</option>
+                    <option value={currentDate.split(" ")[1] - 1} >{currentDate.split(" ")[1] - 1}</option>
+                </select>
 
                 <select name="type" id="type" onChange={setCategoryType}>
                     <option value="Income" >Income</option>
