@@ -1,19 +1,16 @@
 .user-container {
   background-color: #e8e7e1;
-  background-color: white;
   min-height: 750px;
   padding-top: 2%;
   padding-bottom: 2%;
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-rows: 150px auto;
-  grid-template-areas: "month add"
-                        "overall all";
 }
 
 .set-month {
   grid-area: "month";
-  background-color: white;
+  background-color: inherit;
   padding: 30px;
 }
 
@@ -24,13 +21,11 @@
 
 .month-overall {
   grid-area: "overall";
-  background-color: blueviolet;
   padding: 30px;
 }
 
 .all-transactions {
   grid-area: "all";
-  background-color: white;
   min-height: 500px;
   padding: 30px;
 }

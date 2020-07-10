@@ -1,9 +1,13 @@
 import React from 'react'
+import "./AllTransactions.css"
 
 const AllTransactions = props => {
 
     return (<>
-        All Transactions
+        <div className="all-transactions-div">
+            <h5>All Transactions for {props.month}</h5>
+
+        </div>
     </>);
 }
 
