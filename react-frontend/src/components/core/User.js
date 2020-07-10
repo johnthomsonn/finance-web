@@ -14,12 +14,16 @@ const User = props => {
 
   const addTransaction = transaction => setTransactions([...transactions, transaction]);
 
+  const updateSelectedMonth = newMonth => {
+    setMonth(newMonth);
+  }
+
   return (<>
     <NavBar {...props} />
     <div class="container-fluid user-container">
 
       <div class="set-month" >
-        <SetMonth {...props} setMonth={setMonth} />
+        <SetMonth {...props} updateMonth={updateSelectedMonth} />
       </div>
 
       <div class="create-transaction">
