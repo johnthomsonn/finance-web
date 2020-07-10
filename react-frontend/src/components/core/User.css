@@ -30,7 +30,7 @@
 
 .all-transactions {
   grid-area: "all";
-  background-color: darksalmon;
+  background-color: white;
   min-height: 500px;
   padding: 30px;
 }
