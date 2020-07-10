@@ -39,7 +39,7 @@ exports.getTransactionCreationErrors = [
     .custom(date => {
       const [year, month, day] = date.split("-")
       const daysInMonth = getMonthDaysFromString(month)
-      if (year >= 2020)
+      if (year >= new Date(Date.now()).getFullYear() - 1)
         if (month >= 1 && month <= 12)
           if (day >= 1 && day <= daysInMonth)
             return true
