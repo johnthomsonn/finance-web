@@ -13,7 +13,7 @@
 
 .set-month {
   grid-area: "month";
-  background-color: aliceblue;
+  background-color: white;
   padding: 30px;
 }
 
