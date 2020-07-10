@@ -10,7 +10,7 @@ const SetMonth = (props) => {
     const setMonthState = () => {
         const monthArray = [];
         const currentYear = new Date(Date.now()).getFullYear();
-        for (let y = currentYear - 1; y <= currentYear; y++) {
+        for (let y = currentYear; y >= currentYear - 1; y--) {
             for (let m = 0; m < 12; m++) {
                 monthArray.push(new Date(y, m, 1).toLocaleString('default', { month: 'long', year: 'numeric' }));
             }
