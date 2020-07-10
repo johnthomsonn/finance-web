@@ -1,5 +1,6 @@
 import React from 'react'
 import "./AllTransactions.css"
+import Transaction from "./Transaction"
 
 const AllTransactions = props => {
 
@@ -22,7 +23,16 @@ const AllTransactions = props => {
                     </thead>
 
                     <tbody>
-
+                        {props.transactions.map((t, i) => {
+                            return <Transaction key={i}
+                                id={i}
+                                amount={t.amount}
+                                description={t.description}
+                                category={t.category}
+                                type={t.transactionType}
+                                date={t.created}
+                            />
+                        })}
                     </tbody>
 
                 </table>
