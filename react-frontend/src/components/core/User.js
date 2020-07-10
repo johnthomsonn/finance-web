@@ -13,7 +13,7 @@ const User = props => {
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState("")
 
-  useEffect(() => getAllTransactions(), []);
+  useEffect(() => getAllTransactions(), [month]);
 
   const addTransaction = transaction => setTransactions([...transactions, transaction]);
 
