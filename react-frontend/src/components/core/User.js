@@ -23,7 +23,7 @@ const User = props => {
     <div class="container-fluid user-container">
 
       <div class="set-month" >
-        <SetMonth {...props} updateMonth={updateSelectedMonth} />
+        <SetMonth {...props} updateMonth={updateSelectedMonth} month={month} />
       </div>
 
       <div class="create-transaction">
