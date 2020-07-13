@@ -65,6 +65,7 @@ const Signin = props => {
         else {
           if (typeof window !== undefined) {
             window.sessionStorage.setItem("user", JSON.stringify(data.user));
+            window.sessionStorage.setItem("balance", data.balance)
             setInput({ ...input, redirectToProfile: true });
           }
         }
