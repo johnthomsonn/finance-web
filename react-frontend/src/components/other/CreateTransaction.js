@@ -120,6 +120,7 @@ const CreateTransaction = props => {
                 else {
                     if (isTransactionInActiveMonth(data.transaction))
                         props.addTransaction(data.transaction);
+                    window.sessionStorage.setItem("balance", data.balance)
                     resetInputFields();
                 }
             })
