@@ -12,13 +12,25 @@ const User = props => {
   const [month, setMonth] = useState(new Date(Date.now()).toLocaleString('default', { month: 'long', year: 'numeric' }))
   const [transactions, setTransactions] = useState([]);
   const [error, setError] = useState("")
+  const [balance, setBalance] = useState("")
 
   useEffect(() => getAllTransactions(), [month]);
+  useEffect(() => setUserBalance(), []);
 
-  const addTransaction = transaction => setTransactions([...transactions, transaction]);
+  const addTransaction = transaction => {
+    setTransactions([...transactions, transaction]);
+    if (transaction.transactionType === "income" || transaction.transactionType === "Income")
+      balance += transaction.amount;
+    else
+      balance -= transaction.amount;
+  }
 
   const updateSelectedMonth = newMonth => {
     setMonth(newMonth);
+  }
+
+  const setUserBalance = () => {
+    setBalance(window.sessionStorage.getItem("balance"))
   }
 
   const getAllTransactions = () => {
@@ -46,7 +58,7 @@ const User = props => {
   }
 
   return (<>
-    <NavBar {...props} />
+    <NavBar {...props} balance={balance} />
     <div className="container-fluid user-container">
 
       <div className="set-month" >
