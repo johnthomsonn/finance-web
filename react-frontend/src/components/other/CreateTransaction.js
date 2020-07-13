@@ -132,7 +132,9 @@ const CreateTransaction = props => {
 
     const isTransactionInActiveMonth = trans => {
         const splitDate = trans.created.split("-");
-        return splitDate[0] == year && getMonthNumber(splitDate[1]) == props.month.split(" ")[1]
+
+        const result = splitDate[0] == year && getMonthNumber(props.month.split(" ")[0]) == splitDate[1]
+        return result
     }
 
     const resetInputFields = () => {
