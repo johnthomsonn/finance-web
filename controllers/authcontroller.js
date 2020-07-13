@@ -106,9 +106,9 @@ exports.signup = async (req, res) => {
           user: {
             _id,
             email,
-            username,
-            balance
-          }
+            username
+          },
+          balance
         });
       }
     }
@@ -161,9 +161,9 @@ exports.signin = async (req, res) => {
           user: {
             _id,
             email,
-            username,
-            balance
-          }
+            username
+          },
+          balance
         });
       }
     }
