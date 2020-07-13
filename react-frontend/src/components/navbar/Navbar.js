@@ -9,7 +9,14 @@ const Navbar = props => {
   const [signedIn, setSignedIn] = useState(false)
   const [username, setUsername] = useState("")
   const [balance, setBalance] = useState("")
+
   useEffect(() => checkIfSignedIn())
+  useEffect(() => updateBalanceOnChange(), [props.balance])
+
+
+  const updateBalanceOnChange = () => {
+    setBalance(props.balance)
+  }
 
   const checkIfSignedIn = () => {
     const isUserSignedIn = isSignedIn();
@@ -17,7 +24,6 @@ const Navbar = props => {
       const userJSON = JSON.parse(window.sessionStorage.getItem("user"));
       if (userJSON) {
         setUsername(userJSON.username);
-        setBalance(window.sessionStorage.getItem("balance"))
       }
     }
 
