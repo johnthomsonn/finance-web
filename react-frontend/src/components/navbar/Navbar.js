@@ -17,7 +17,7 @@ const Navbar = props => {
       const userJSON = JSON.parse(window.sessionStorage.getItem("user"));
       if (userJSON) {
         setUsername(userJSON.username);
-        setBalance(userJSON.balance)
+        setBalance(window.sessionStorage.getItem("balance"))
       }
     }
 
