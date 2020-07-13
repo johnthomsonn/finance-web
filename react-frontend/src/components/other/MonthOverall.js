@@ -3,7 +3,9 @@ import React from 'react'
 const MonthOverall = props => {
 
     return (<>
-        Month Overall
+        <div className="month-overall-div">
+
+        </div>
     </>)
 }
 
