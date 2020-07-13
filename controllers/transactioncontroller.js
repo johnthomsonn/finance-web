@@ -86,7 +86,8 @@ exports.addTransaction = async (req, res) => {
       if (savedUser != undefined) {
         return res.status(201).json({
           message: "transaction " + savedTransaction.description + " saved.",
-          transaction: savedTransaction
+          transaction: savedTransaction,
+          balance
         });
       }
     }
