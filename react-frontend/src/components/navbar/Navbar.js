@@ -8,14 +8,17 @@ const Navbar = props => {
 
   const [signedIn, setSignedIn] = useState(false)
   const [username, setUsername] = useState("")
+  const [balance, setBalance] = useState("")
   useEffect(() => checkIfSignedIn())
 
   const checkIfSignedIn = () => {
     const isUserSignedIn = isSignedIn();
     if (isUserSignedIn) {
       const userJSON = JSON.parse(window.sessionStorage.getItem("user"));
-      if (userJSON)
+      if (userJSON) {
         setUsername(userJSON.username);
+        setBalance(userJSON.balance)
+      }
     }
 
     setSignedIn(isUserSignedIn);
@@ -35,6 +38,12 @@ const Navbar = props => {
           <Link to={`/${username}`} className="nav-link"> {signedIn && `${username}`} </Link>
         </li>)}
 
+      </ul>
+
+      <ul className="nav-balance navbar-nav">
+        <li className="nav-item">
+          <span className="nav-linkk">Balance: £{balance}</span>
+        </li>
       </ul>
 
       <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navCollapse">
