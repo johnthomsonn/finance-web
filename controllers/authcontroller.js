@@ -101,12 +101,13 @@ exports.signup = async (req, res) => {
 
         res.cookie("localToken", true, { expires: 0, sameSite: "Strict" })
 
-        const { _id, email, username } = savedUser;
+        const { _id, email, username, balance } = savedUser;
         return res.status(201).json({
           user: {
             _id,
             email,
-            username
+            username,
+            balance
           }
         });
       }
@@ -155,12 +156,13 @@ exports.signin = async (req, res) => {
 
         res.cookie("financeToken", token, cookieOptions);
         res.cookie("localToken", true, { expires: 0, sameSite: "Strict" })
-        const { _id, email, username } = foundUser;
+        const { _id, email, username, balance } = foundUser;
         return res.status(201).json({
           user: {
             _id,
             email,
-            username
+            username,
+            balance
           }
         });
       }
