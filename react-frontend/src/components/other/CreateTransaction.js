@@ -118,7 +118,8 @@ const CreateTransaction = props => {
                     setError(data.error);
                 }
                 else {
-                    props.addTransaction(data.transaction);
+                    if (isTransactionInActiveMonth(data.transaction))
+                        props.addTransaction(data.transaction);
                     resetInputFields();
                 }
             })
@@ -126,6 +127,11 @@ const CreateTransaction = props => {
                 console.log(err);
                 setError(err);
             })
+    }
+
+    const isTransactionInActiveMonth = trans => {
+        const splitDate = trans.created.split("-");
+        return splitDate[0] == year && getMonthNumber(splitDate[1]) == props.month.split(" ")[1]
     }
 
     const resetInputFields = () => {
