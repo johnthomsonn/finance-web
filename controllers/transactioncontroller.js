@@ -76,7 +76,13 @@ exports.addTransaction = async (req, res) => {
       const user = req.user;
       //user.transactions.push(savedTransaction);
       //const savedUser = await user.save();
-      const savedUser = await User.updateOne({ _id: user._id }, { $push: { transactions: savedTransaction } });
+      let balance = user.balance;
+      if (savedTransaction.transactionType === "Income" || savedTransaction.transactionType === "income")
+        balance += savedTransaction.amount;
+      else
+        balance -= savedTransaction.amount;
+      const savedUser = await User.updateOne({ _id: user._id }, { $push: { transactions: savedTransaction }, $set: { balance: balance } });
+
       if (savedUser != undefined) {
         return res.status(201).json({
           message: "transaction " + savedTransaction.description + " saved.",
