@@ -25,5 +25,12 @@ the express server on port PORT || 5000 and the react server on port 3000.
 ``` DELETE /user/:username/transaction/:transactionId ``` => deletes the transaction :transactionId from the user with username :username    
 ``` GET /user/:username/month/:month/transactions ``` => returns all transactions for that month. (:month must be of the form mmm-yy, eg jan-20)  
 
-``` GET /user/:username/transaction/types ``` => Returns income category and expenditure category arrays  
-
+``` GET /user/:username/transaction/types ``` => Returns income category and expenditure category arrays    
+  
+  
+TODO:
+    - display overall balance in navbar
+    - ability to delete transaction
+    - ability to delete user profile
+    - add inital balance input whgen signing up
+    - ability to alter current balance in edit profile
