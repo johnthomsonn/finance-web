@@ -18,6 +18,7 @@ const Transaction = props => {
             <td>{description}</td>
             <td>{category}</td>
             <td>{type}</td>
+            <td><button className="custom">X</button></td>
         </tr>
     </>)
 }
