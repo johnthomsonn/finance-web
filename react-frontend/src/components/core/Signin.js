@@ -98,7 +98,7 @@ const Signin = props => {
         <h1> Sign In </h1>
         <form onSubmit={submitSignIn}>
           <div className="form-group">
-            <label for="unique" className="bmd-label-floating">
+            <label htmlFor="unique" className="bmd-label-floating">
               Username or Email
             </label>
             <input
@@ -113,7 +113,7 @@ const Signin = props => {
 
 
           <div className="form-group">
-            <label for="password" className="bmd-label-floating">
+            <label htmlFor="password" className="bmd-label-floating">
               Password
             </label>
             <input

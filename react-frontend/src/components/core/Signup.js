@@ -156,7 +156,7 @@ const Signup = props => {
           <h1> Sign Up </h1>
           <form onSubmit={submitSignup}>
             <div className="form-group">
-              <label for="username" className="bmd-label-floating">
+              <label htmlFor="username" className="bmd-label-floating">
                 {" "}
                 Username{" "}
               </label>
@@ -172,7 +172,7 @@ const Signup = props => {
             </div>
 
             <div className="form-group">
-              <label for="email" className="bmd-label-floating">
+              <label htmlFor="email" className="bmd-label-floating">
                 {" "}
                 Email{" "}
               </label>
@@ -188,7 +188,7 @@ const Signup = props => {
             </div>
 
             <div className="form-group">
-              <label for="balance" className="bmd-label-floating">
+              <label htmlFor="balance" className="bmd-label-floating">
                 {" "}
                 Balance{" "}
               </label>
@@ -204,7 +204,7 @@ const Signup = props => {
             </div>
 
             <div className="form-group">
-              <label for="password" className="bmd-label-floating">
+              <label htmlFor="password" className="bmd-label-floating">
                 {" "}
                 Password{" "}
               </label>
@@ -220,7 +220,7 @@ const Signup = props => {
             </div>
 
             <div className="form-group">
-              <label for="confirm" className="bmd-label-floating">
+              <label htmlFor="confirm" className="bmd-label-floating">
                 {" "}
                 Confirm Password{" "}
               </label>
