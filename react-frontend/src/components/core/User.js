@@ -26,8 +26,9 @@ const User = props => {
     setTransactions([...transactions, transaction]);
   }
 
-  const removeTransaction = transaction => {
-
+  const removeTransaction = transactionId => {
+    const newTransactions = transactions.filter(t => t._id !== transactionId)
+    setTransactions(newTransactions)
   }
 
   const updateSelectedMonth = newMonth => {
