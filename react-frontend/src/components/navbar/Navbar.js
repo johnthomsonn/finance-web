@@ -38,9 +38,13 @@ const Navbar = props => {
         <li className="nav-item">
           <Link to="/" className="nav-link"> Home </Link>
         </li>
-        {signedIn && (<li className="nav-item">
-          <Link to={`/${username}`} className="nav-link"> {signedIn && `${username}`} </Link>
-        </li>)}
+        {signedIn && (<><li className="nav-item">
+          <Link to={`/${username}`} className="nav-link"> {`${username}`} </Link>
+
+        </li>
+          <li className="nav-item">
+            <Link to={`/${username}/edit`} className="nav-link"> Edit Profile </Link>
+          </li></>)}
 
       </ul>
 
