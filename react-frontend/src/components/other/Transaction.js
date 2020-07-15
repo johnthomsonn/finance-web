@@ -20,7 +20,7 @@ const Transaction = props => {
                     props.error(data.error)
                 }
                 else {
-
+                    props.removeTransaction(id)
                 }
             })
             .catch(error => props.error(error))

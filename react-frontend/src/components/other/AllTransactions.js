@@ -33,6 +33,7 @@ const AllTransactions = props => {
                                 date={t.created}
                                 error={props.error}
                                 id={t._id}
+                                removeTransaction={props.removeTransaction}
                             />
                         })}
                     </tbody>
