@@ -34,6 +34,7 @@ const AllTransactions = props => {
                                 error={props.error}
                                 id={t._id}
                                 removeTransaction={props.removeTransaction}
+                                setBalance={props.setBalance}
                             />
                         })}
                     </tbody>
