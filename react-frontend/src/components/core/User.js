@@ -82,7 +82,7 @@ const User = props => {
       </div>
 
       <div className="create-transaction">
-        <CreateTransaction {...props} addTransaction={addTransaction} month={month} />
+        <CreateTransaction {...props} addTransaction={addTransaction} month={month} alterBalance={alterBalance} />
       </div>
 
       <div className="month-overall">
