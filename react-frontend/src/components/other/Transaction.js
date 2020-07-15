@@ -19,6 +19,9 @@ const Transaction = props => {
                 if (data.error) {
                     props.error(data.error)
                 }
+                else {
+
+                }
             })
             .catch(error => props.error(error))
     }
