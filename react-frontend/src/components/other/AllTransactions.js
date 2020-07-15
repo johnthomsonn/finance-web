@@ -31,6 +31,7 @@ const AllTransactions = props => {
                                 category={t.category}
                                 type={t.transactionType}
                                 date={t.created}
+                                error={props.error}
                             />
                         })}
                     </tbody>
