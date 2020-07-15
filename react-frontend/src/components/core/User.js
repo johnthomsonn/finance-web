@@ -6,6 +6,7 @@ import CreateTransaction from '../other/CreateTransaction'
 import AllTransactions from '../other/AllTransactions'
 import './User.css'
 import Footer from './Footer'
+import { remove } from 'lodash'
 
 const User = props => {
 
@@ -23,6 +24,10 @@ const User = props => {
     else
       setBalance(Number(balance) - transaction.amount);
     setTransactions([...transactions, transaction]);
+  }
+
+  const removeTransaction = transaction => {
+
   }
 
   const updateSelectedMonth = newMonth => {
@@ -82,7 +87,7 @@ const User = props => {
 
 
       <div className="all-transactions">
-        <AllTransactions {...props} month={month} transactions={transactions} error={setError} />
+        <AllTransactions {...props} month={month} transactions={transactions} error={setError} removeTransaction={removeTransaction} />
       </div>
 
     </div>
