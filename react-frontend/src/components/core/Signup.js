@@ -20,7 +20,8 @@ const Signup = props => {
   const [validState, setValidState] = useState({
     username: false,
     email: false,
-    password: false
+    password: false,
+    balance: false
   })
 
   //effects
@@ -47,6 +48,8 @@ const Signup = props => {
       setValidState({ ...validState, password: input.password.length >= 8 && input.password === change });
     else if (name === "password")
       setValidState({ ...validState, password: change.length >= 8 && change === input.confirm });
+    else if (name === "balance")
+      setValidState({ ...validState, balance: isValidBalance(change) });
   }
 
   // checks to see if user input is valid by checking the valid state then sets the showSubmit state
@@ -125,7 +128,15 @@ const Signup = props => {
     return isValid;
   }
 
-
+  const isValidBalance = balance => {
+    let isValid = false;
+    isValid = /^\d+(\.\d{1,2})?$/gi.test(balance);
+    let newInputError = "";
+    if (!isValid) {
+      newInputError = "Invalid balance"
+    }
+    setError(newInputError)
+  }
 
   if (input.redirectToProfile) {
     return <Redirect to={`/${input.username}`} />
