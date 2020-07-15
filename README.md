@@ -30,5 +30,4 @@ the express server on port PORT || 5000 and the react server on port 3000.
   
 TODO:
     - ability to delete user profile
-    - add inital balance input whgen signing up
     - ability to alter current balance in edit profile
