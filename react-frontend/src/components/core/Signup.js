@@ -130,7 +130,7 @@ const Signup = props => {
 
   const isValidBalance = balance => {
     let isValid = false;
-    isValid = /^\d+(\.\d{1,2})?$/gi.test(balance);
+    isValid = (/^\d+(\.\d{1,2})?$/gi).test(balance);
     let newInputError = "";
     if (!isValid) {
       newInputError = "Invalid balance"
