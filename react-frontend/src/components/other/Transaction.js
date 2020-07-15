@@ -17,10 +17,12 @@ const Transaction = props => {
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
-                    props.error(data.error)
+                    props.error(data.error);
                 }
                 else {
-                    props.removeTransaction(id)
+                    props.removeTransaction(id);
+                    window.sessionStorage.setItem("balance", data.balance);
+                    props.setBalance(data.balance);
                 }
             })
             .catch(error => props.error(error));
