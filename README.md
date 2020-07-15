@@ -29,7 +29,7 @@ the express server on port PORT || 5000 and the react server on port 3000.
   
   
 TODO:
-    - display overall balance in navbar
+    - update balance in navbar when adding transaction
     - ability to delete transaction
     - ability to delete user profile
     - add inital balance input whgen signing up
