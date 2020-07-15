@@ -19,11 +19,15 @@ const User = props => {
   useEffect(() => setUserBalance(), []);
 
   const addTransaction = transaction => {
+    alterBalance(transaction)
+    setTransactions([...transactions, transaction]);
+  }
+
+  const alterBalance = transaction => {
     if (transaction.transactionType == "income" || transaction.transactionType == "Income")
       setBalance(Number(balance) + transaction.amount);
     else
       setBalance(Number(balance) - transaction.amount);
-    setTransactions([...transactions, transaction]);
   }
 
   const removeTransaction = transactionId => {
