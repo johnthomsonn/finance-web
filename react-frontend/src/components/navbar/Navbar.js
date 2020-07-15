@@ -46,7 +46,7 @@ const Navbar = props => {
 
       <ul className="nav-balance navbar-nav">
         <li className="nav-item">
-          <span className="nav-linkk">Balance: £{balance}</span>
+          <span className="nav-linkk" style={{ display: signedIn ? "" : "none" }}>Balance: £{balance}</span>
         </li>
       </ul>
 
