@@ -8,7 +8,7 @@ const MonthOverall = props => {
     const [sorted, setSorted] = useState({})
 
     useEffect(() => setTransactions(props.transactions), [])
-    useEffect(() => sortTransactions(), [])
+    //useEffect(() => sortTransactions(), [])
 
     const sortTransactions = () => {
         let obj = {};
