@@ -39,6 +39,11 @@ exports.deleteTransaction = (req, res) => {
             transaction._id.toString() != removedTransaction._id.toString()
         );
         req.user.transactions = newArray;
+
+        if (removedTransaction.transactionType === "income" || removedTransaction.transactionType === "Income")
+          req.user.balance -= removedTransaction.amount;
+        else
+          req.user.balance += removedTransaction.amount;
         req.user.save((err, doc) => {
           if (err || !doc) {
             return res.json({
