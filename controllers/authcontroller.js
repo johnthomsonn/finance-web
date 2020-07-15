@@ -76,7 +76,8 @@ exports.signup = async (req, res) => {
       const newUser = await new User({
         email,
         username,
-        password: req.body.password
+        password: req.body.password,
+        balance: req.body.balance
       });
       const savedUser = await newUser.save();
       if (!savedUser) {
