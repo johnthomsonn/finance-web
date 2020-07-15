@@ -118,10 +118,11 @@ const CreateTransaction = props => {
                     setError(data.error);
                 }
                 else {
-                    if (isTransactionInActiveMonth(data.transaction))
-                        props.addTransaction(data.transaction);
                     window.sessionStorage.setItem("balance", data.balance)
                     resetInputFields();
+                    if (isTransactionInActiveMonth(data.transaction))
+                        props.addTransaction(data.transaction);
+
                 }
             })
             .catch(err => {
