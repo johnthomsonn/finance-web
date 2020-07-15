@@ -122,6 +122,8 @@ const CreateTransaction = props => {
                     resetInputFields();
                     if (isTransactionInActiveMonth(data.transaction))
                         props.addTransaction(data.transaction);
+                    else
+                        props.alterBalance(data.transaction)
 
                 }
             })
