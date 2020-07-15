@@ -51,7 +51,8 @@ exports.deleteTransaction = (req, res) => {
             });
           } else {
             return res.json({
-              message: `transaction ${removedTransaction.description} deleted`
+              message: `transaction ${removedTransaction.description} deleted`,
+              balance: doc.balance
             });
           }
         });
