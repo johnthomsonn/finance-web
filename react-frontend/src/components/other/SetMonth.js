@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import "./SetMonth.css";
 
-const SetMonth = (props) => {
+const SetMonth = props => {
 
     const [months, setMonths] = useState([]);
 
@@ -12,17 +12,17 @@ const SetMonth = (props) => {
         const currentYear = new Date(Date.now()).getFullYear();
         for (let y = currentYear; y >= currentYear - 1; y--) {
             for (let m = 0; m < 12; m++) {
-                monthArray.push(new Date(y, m, 1).toLocaleString('default', { month: 'long', year: 'numeric' }));
+                monthArray.push(new Date(y, m, 1).toLocaleString("default", { month: "long", year: "numeric" }));
             }
         }
         setMonths(monthArray);
-    }
+    };
 
 
     const handleMonthChange = () => {
         const selected = document.getElementById("setMonth").value;
-        props.updateMonth(selected)
-    }
+        props.updateMonth(selected);
+    };
 
 
 
@@ -35,7 +35,7 @@ const SetMonth = (props) => {
             </select>
 
         </div>
-    </>)
-}
+    </>);
+};
 
 export default SetMonth;

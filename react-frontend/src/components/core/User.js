@@ -1,50 +1,50 @@
-import React, { useState, useEffect } from 'react'
-import NavBar from '../navbar/Navbar'
-import SetMonth from '../other/SetMonth'
-import MonthOverall from '../other/MonthOverall'
-import CreateTransaction from '../other/CreateTransaction'
-import AllTransactions from '../other/AllTransactions'
-import './User.css'
-import Footer from './Footer'
+import React, { useState, useEffect } from "react";
+import NavBar from "../navbar/Navbar";
+import SetMonth from "../other/SetMonth";
+import MonthOverall from "../other/MonthOverall";
+import CreateTransaction from "../other/CreateTransaction";
+import AllTransactions from "../other/AllTransactions";
+import "./User.css";
+import Footer from "./Footer";
 
 const User = props => {
 
-  const [month, setMonth] = useState(new Date(Date.now()).toLocaleString('default', { month: 'long', year: 'numeric' }))
+  const [month, setMonth] = useState(new Date(Date.now()).toLocaleString("default", { month: "long", year: "numeric" }));
   const [transactions, setTransactions] = useState([]);
-  const [error, setError] = useState("")
-  const [balance, setBalance] = useState("")
+  const [error, setError] = useState("");
+  const [balance, setBalance] = useState("");
 
   useEffect(() => getAllTransactions(), [month]);
   useEffect(() => setUserBalance(), []);
 
   const addTransaction = transaction => {
-    alterBalance(transaction)
+    alterBalance(transaction);
     setTransactions([...transactions, transaction]);
-  }
+  };
 
   const alterBalance = transaction => {
     if (transaction.transactionType == "income" || transaction.transactionType == "Income")
       setBalance(Number(balance) + transaction.amount);
     else
       setBalance(Number(balance) - transaction.amount);
-  }
+  };
 
   const removeTransaction = transactionId => {
-    const newTransactions = transactions.filter(t => t._id !== transactionId)
-    setTransactions(newTransactions)
-  }
+    const newTransactions = transactions.filter(t => t._id !== transactionId);
+    setTransactions(newTransactions);
+  };
 
   const updateSelectedMonth = newMonth => {
     setMonth(newMonth);
-  }
+  };
 
   const setUserBalance = () => {
-    setBalance(window.sessionStorage.getItem("balance"))
-  }
+    setBalance(window.sessionStorage.getItem("balance"));
+  };
 
   const getAllTransactions = () => {
     const monthSplit = month.split(" ");
-    const m = monthSplit[0].substr(0, 3) + "-" + monthSplit[1].substr(2, 4)
+    const m = monthSplit[0].substr(0, 3) + "-" + monthSplit[1].substr(2, 4);
     fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/month/${m}/transactions`, {
       method: "GET",
       mode: "cors",
@@ -63,8 +63,8 @@ const User = props => {
           setError("")
         }
       })
-      .catch(err => console.log(err))
-  }
+      .catch(err => console.log(err));
+  };
 
   return (<>
     <NavBar {...props} balance={balance} />
@@ -97,7 +97,7 @@ const User = props => {
 
     <Footer />
 
-  </>)
-}
+  </>);
+};
 
 export default User;

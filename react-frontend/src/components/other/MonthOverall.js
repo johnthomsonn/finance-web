@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import "./MonthOverall.css"
+import React, { useEffect, useState } from "react";
+import "./MonthOverall.css";
 
 const MonthOverall = props => {
 
 
-    const [transactions, setTransactions] = useState([])
-    const [sorted, setSorted] = useState({})
+    const [transactions, setTransactions] = useState([]);
+    const [sorted, setSorted] = useState({});
 
-    useEffect(() => setTransactions(props.transactions), [])
+    useEffect(() => setTransactions(props.transactions), []);
     //useEffect(() => sortTransactions(), [])
 
     const sortTransactions = () => {
@@ -25,21 +25,22 @@ const MonthOverall = props => {
             else {
                 obj = { ...obj, [cat]: amount }
             }
-        })
+        });
         //setSorted(obj)
-        return obj;
-    }
+        //return obj;
+        console.log(obj);
+    };
 
     const doTable = () => {
         const categories = sortTransactions();
 
 
-    }
+    };
 
     return (<>
         <div className="month-overall-div">
             <h5>{props.month} Summary</h5>
-
+            {sortTransactions()}
             <table className="table">
                 <thead>
                     <tr>
@@ -54,7 +55,7 @@ const MonthOverall = props => {
             </table>
 
         </div>
-    </>)
-}
+    </>);
+};
 
 export default MonthOverall;

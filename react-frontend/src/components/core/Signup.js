@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import NavBar from '../navbar/Navbar'
+import NavBar from "../navbar/Navbar"
 import { Redirect } from "react-router-dom";
 import "./Signup.css";
 import { isSignedIn, validateUsername, validateEmail } from "../../js/methods";
@@ -15,17 +15,17 @@ const Signup = props => {
     balance: 0,
     redirectToProfile: false
   });
-  const [error, setError] = useState("")
-  const [showSubmit, setShowSubmit] = useState(false)
+  const [error, setError] = useState("");
+  const [showSubmit, setShowSubmit] = useState(false);
   const [validState, setValidState] = useState({
     username: false,
     email: false,
     password: false,
     balance: false
-  })
+  });
 
   //effects
-  useEffect(() => shouldSubmitButtonAppear(), [validState])
+  useEffect(() => shouldSubmitButtonAppear(), [validState]);
 
   //called whenever the user presses a key in the submit form
   const handleInput = name => evt => {
@@ -34,7 +34,7 @@ const Signup = props => {
     setInput({ ...input, [name]: change });
 
     //sets the input state to be valid or not depending on user input
-    setInputState(name, change)
+    setInputState(name, change);
 
   };
 
@@ -50,12 +50,12 @@ const Signup = props => {
       setValidState({ ...validState, password: change.length >= 8 && change === input.confirm });
     else if (name === "balance")
       setValidState({ ...validState, balance: isValidBalance(change) });
-  }
+  };
 
   // checks to see if user input is valid by checking the valid state then sets the showSubmit state
   const shouldSubmitButtonAppear = () => {
-    setShowSubmit((validState.username && validState.password && validState.email) ? true : false)
-  }
+    setShowSubmit((validState.username && validState.password && validState.email) ? true : false);
+  };
 
   //id we get this far then all input is valid
   const submitSignup = evt => {
@@ -66,7 +66,7 @@ const Signup = props => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
       method: "POST",
       mode: "cors",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -92,7 +92,7 @@ const Signup = props => {
           }
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
 
   };
 
@@ -110,7 +110,7 @@ const Signup = props => {
     }
     setError(newInputError);
     return isValid;
-  }
+  };
 
   const isValidEmail = email => {
     let isValid = false;
@@ -126,7 +126,7 @@ const Signup = props => {
     }
     setError(newInputError);
     return isValid;
-  }
+  };
 
   const isValidBalance = balance => {
     let isValid = false;
@@ -136,10 +136,10 @@ const Signup = props => {
       newInputError = "Invalid balance"
     }
     setError(newInputError)
-  }
+  };
 
   if (input.redirectToProfile) {
-    return <Redirect to={`/${input.username}`} />
+    return <Redirect to={`/${input.username}`} />;
   }
 
 

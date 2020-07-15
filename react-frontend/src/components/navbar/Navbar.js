@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from 'react'
-
-import './Navbar.css'
-import { Link, Redirect } from 'react-router-dom'
-import { isSignedIn, signOut } from '../../js/methods'
+import React, { useState, useEffect } from "react";
+import "./Navbar.css";
+import { Link, Redirect } from "react-router-dom";
+import { isSignedIn, signOut } from "../../js/methods";
 
 const Navbar = props => {
 
-  const [signedIn, setSignedIn] = useState(false)
-  const [username, setUsername] = useState("")
-  const [balance, setBalance] = useState("")
+  const [signedIn, setSignedIn] = useState(false);
+  const [username, setUsername] = useState("");
+  const [balance, setBalance] = useState("");
 
-  useEffect(() => checkIfSignedIn())
-  useEffect(() => updateBalanceOnChange(), [props.balance])
+  useEffect(() => checkIfSignedIn());
+  useEffect(() => updateBalanceOnChange(), [props.balance]);
 
 
   const updateBalanceOnChange = () => {
-    setBalance(props.balance)
-  }
+    setBalance(props.balance);
+  };
 
   const checkIfSignedIn = () => {
     const isUserSignedIn = isSignedIn();
@@ -26,9 +25,8 @@ const Navbar = props => {
         setUsername(userJSON.username);
       }
     }
-
     setSignedIn(isUserSignedIn);
-  }
+  };
 
   return (<>
     <nav className="navbar navbar-expand-md bg-dark container-fluid" >
@@ -74,8 +72,8 @@ const Navbar = props => {
       </div>
 
     </nav>
-  </>)
+  </>);
 
-}
+};
 
-export default Navbar
+export default Navbar;

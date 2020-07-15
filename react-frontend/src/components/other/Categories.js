@@ -1,1 +1,1 @@
-exports.transactionCategories = ['bills', 'salary', 'food', 'other', 'bad']
+exports.transactionCategories = ["bills", "salary", "food", "other", "bad"];

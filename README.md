@@ -32,3 +32,4 @@ TODO:
     - ability to delete user profile
     - ability to alter current balance in edit profile
     - signout does not redirect properly
+    - alter balance when transaction deleted

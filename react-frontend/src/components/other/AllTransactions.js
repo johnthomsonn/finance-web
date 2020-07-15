@@ -1,6 +1,6 @@
-import React from 'react'
-import "./AllTransactions.css"
-import Transaction from "./Transaction"
+import React from "react";
+import "./AllTransactions.css";
+import Transaction from "./Transaction";
 
 const AllTransactions = props => {
 
@@ -43,6 +43,6 @@ const AllTransactions = props => {
 
         </div>
     </>);
-}
+};
 
 export default AllTransactions;

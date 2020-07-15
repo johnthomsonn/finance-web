@@ -1,5 +1,5 @@
-import React from "react"
-import "./Transaction.css"
+import React from "react";
+import "./Transaction.css";
 
 const Transaction = props => {
 
@@ -23,21 +23,21 @@ const Transaction = props => {
                     props.removeTransaction(id)
                 }
             })
-            .catch(error => props.error(error))
-    }
+            .catch(error => props.error(error));
+    };
 
     return (<>
         <tr style={{ backgroundColor: type == "Income" ? green : red }}>
             <th scope="row">{count}</th>
             <td>£{amount}</td>
-            <td>{new Date(date).toLocaleDateString('default', {
-                day: 'numeric', month: 'short', year: 'numeric'
+            <td>{new Date(date).toLocaleDateString("default", {
+                day: "numeric", month: "short", year: "numeric"
             })}</td>
             <td>{description}</td>
             <td>{category}</td>
             <td>{type}</td>
             <td><button className="custom" onClick={deleteTransaction}>X</button></td>
         </tr>
-    </>)
-}
+    </>);
+};
 export default Transaction;

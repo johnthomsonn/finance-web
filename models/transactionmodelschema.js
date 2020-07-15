@@ -1,7 +1,7 @@
-const express = require('express')
-const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Schema
-const { transactionCategories } = require('./transactioncategories')
+const express = require("express");
+const mongoose = require("mongoose");
+const { ObjectId } = mongoose.Schema;
+const { transactionCategories } = require("./transactioncategories");
 
 
 transactionSchema = new mongoose.Schema({
@@ -19,7 +19,7 @@ transactionSchema = new mongoose.Schema({
   },
   transactionType: {
     type: String,
-    enum: ['income', 'expenditure', 'Income', 'Expenditure'],
+    enum: ["income", "expenditure", "Income", "Expenditure"],
     required: true
   },
   category: {
@@ -31,7 +31,7 @@ transactionSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-})
+});
 
 
-module.exports = transactionSchema
+module.exports = transactionSchema;

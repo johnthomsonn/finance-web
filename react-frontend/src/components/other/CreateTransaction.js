@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react'
-import './CreateTransaction.css'
-import { split } from 'lodash'
-import { transactionCategories } from "./Categories"
+import React, { useState, useEffect } from "react";
+import "./CreateTransaction.css";
 
 const CreateTransaction = props => {
 
     const [input, setInput] = useState({
         amount: "",
         description: ""
-    })
+    });
 
-    const [error, setError] = useState("")
+    const [error, setError] = useState("");
 
-    const [ttype, setType] = useState("Income")
+    const [ttype, setType] = useState("Income");
 
-    const [incomeCategories, setIncomeCategories] = useState([])
-    const [expenditureCategories, setExpenditureCategories] = useState([])
+    const [incomeCategories, setIncomeCategories] = useState([]);
+    const [expenditureCategories, setExpenditureCategories] = useState([]);
 
-    const [currMonth, setCurrMonth] = useState(props.month.split(" ")[0])
-    const [year, setYear] = useState(props.month.split(" ")[1])
+    const [currMonth, setCurrMonth] = useState(props.month.split(" ")[0]);
+    const [year, setYear] = useState(props.month.split(" ")[1]);
 
-    const [currentDate, setCurrentDate] = useState(new Date(Date.now()).toLocaleString('default', { month: 'long', year: 'numeric' }))
+    const [currentDate, setCurrentDate] = useState(new Date(Date.now()).toLocaleString("default", { month: "long", year: "numeric" }));
 
     useEffect(() => {
         preSelectDay();
@@ -34,19 +32,19 @@ const CreateTransaction = props => {
         const r = months.filter(m => m === currMonth)
         setCurrMonth(r.toString())
 
-    }, [props.month])
+    }, [props.month]);
 
     useEffect(() => getCategories(), []);
 
     const handleMonthChange = () => {
-        setCurrMonth(document.getElementById("month").value)
-    }
+        setCurrMonth(document.getElementById("month").value);
+    };
 
     const getCategories = () => {
         fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction/types`, {
             method: "GET",
             mode: "cors",
-            credentials: 'include',
+            credentials: "include",
             headers: {
                 Accept: "application/json"
             }
@@ -56,30 +54,30 @@ const CreateTransaction = props => {
                 setIncomeCategories(data.income);
                 setExpenditureCategories(data.expenditure);
             })
-            .catch(err => console.log(err))
-    }
+            .catch(err => console.log(err));
+    };
 
     const preSelectDay = () => {
-        const day = new Date(Date.now()).getDate()
+        const day = new Date(Date.now()).getDate();
         document.getElementById("day").selectedIndex = day - 1;
-    }
+    };
 
     const preSelectMonth = () => {
         const monthNumber = new Date(Date.now()).getMonth();
         document.getElementById("month").selectedIndex = monthNumber;
-    }
+    };
 
     const handleYearChange = () => {
         const year = document.getElementById("year").value;
         setYear(year);
-    }
+    };
 
     const handleInputChange = name => event => {
-        const change = event.target.value
-        setInput({ ...input, [name]: change })
+        const change = event.target.value;
+        setInput({ ...input, [name]: change });
         if (error)
-            setError("")
-    }
+            setError("");
+    };
 
     const submitCreateTransaction = e => {
         e.preventDefault();
@@ -87,9 +85,9 @@ const CreateTransaction = props => {
             createTransaction();
         }
         else {
-            setError("Please ensure amount is greater than 0 and the description field is not empty")
+            setError("Please ensure amount is greater than 0 and the description field is not empty");
         }
-    }
+    };
 
     const createTransaction = () => {
         const type = document.getElementById("type").value;
@@ -130,23 +128,23 @@ const CreateTransaction = props => {
             .catch(err => {
                 console.log(err);
                 setError(err);
-            })
-    }
+            });
+    };
 
     const isTransactionInActiveMonth = trans => {
         const splitDate = trans.created.split("-");
 
-        const result = splitDate[0] == year && getMonthNumber(props.month.split(" ")[0]) == splitDate[1]
-        return result
-    }
+        const result = splitDate[0] == year && getMonthNumber(props.month.split(" ")[0]) == splitDate[1];
+        return result;
+    };
 
     const resetInputFields = () => {
         setInput({
             amount: "",
             description: ""
-        })
-        setError("")
-    }
+        });
+        setError("");
+    };
 
     const days = () => {
         const allDays = [];
@@ -156,7 +154,7 @@ const CreateTransaction = props => {
             allDays.push(i);
         }
         return allDays;
-    }
+    };
 
     const getMonthNumber = monthString => {
         switch (monthString) {
@@ -185,14 +183,14 @@ const CreateTransaction = props => {
             case "December":
                 return 12;
         }
-    }
+    };
 
     const getMonthStrings = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
     const setCategoryType = t => {
         const val = document.getElementById("type").value;
-        setType(val)
-    }
+        setType(val);
+    };
 
 
 
@@ -236,7 +234,7 @@ const CreateTransaction = props => {
                 <button type="submit" > Add Transaction </button>
             </form>
         </div>
-    </>)
-}
+    </>);
+};
 
 export default CreateTransaction;

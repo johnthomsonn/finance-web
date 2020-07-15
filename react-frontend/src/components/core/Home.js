@@ -1,23 +1,20 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import Footer from './Footer'
-import NavBar from '../navbar/Navbar'
-import './Home.css'
+import React from "react";
+import { Link } from "react-router-dom";
+import Footer from "./Footer";
+import NavBar from "../navbar/Navbar";
+import "./Home.css";
 
-//todo:
-// render links based on signed in or not
-// change signout link to styled button
 
 const Home = props => {
 
   return (<>
 
-    <NavBar {...props}/>
+    <NavBar {...props} />
 
 
     <header>
-    <h1>Finance Tracker</h1>
-    <h6> Keeping track of your money</h6>
+      <h1>Finance Tracker</h1>
+      <h6> Keeping track of your money</h6>
     </header>
 
     <section id="about">
@@ -33,6 +30,6 @@ const Home = props => {
 
     <Footer />
 
-  </>)
-}
-export default Home
+  </>);
+};
+export default Home;

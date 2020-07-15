@@ -1,4 +1,4 @@
-const {check, validationResult} = require("express-validator");
+const { check, validationResult } = require("express-validator");
 
 exports.getSignupErrors = [
   check("username", "username is required")
@@ -19,7 +19,7 @@ exports.getSignupErrors = [
   check("password", "A password is required")
     .not()
     .isEmpty()
-    .isLength({min: 8})
+    .isLength({ min: 8 })
     .withMessage("Password must be at leat 8 characters")
 ];
 
@@ -28,7 +28,7 @@ exports.signupValidation = (req, res, next) => {
   if (!errors.isEmpty()) {
     const errArray = errors.array();
     const msgs = errArray.map(error => error.msg);
-    return res.status(400).json({error: msgs});
+    return res.status(400).json({ error: msgs });
   }
   next();
 };
@@ -40,7 +40,7 @@ exports.getSignInErrors = ([
   check("password", "A password is required")
     .not()
     .isEmpty()
-    .isLength({min: 8})
+    .isLength({ min: 8 })
     .withMessage("Password must be at leat 8 characters")
 ]);
 
@@ -49,7 +49,7 @@ exports.signinValidation = (req, res, next) => {
   if (!errors.isEmpty()) {
     const errArray = errors.array()
     const msgs = errArray.map(error => error.msg)
-    return res.status(400).json({error : msgs})
+    return res.status(400).json({ error: msgs })
   }
   next();
-}
+};

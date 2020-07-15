@@ -1,14 +1,14 @@
-import React from 'react'
-import './Footer.css'
+import React from "react";
+import "./Footer.css";
 
 const Footer = props => {
   return (<>
     <footer>
       <p>
-        © John Thomson { new Date(Date.now()).getUTCFullYear()}
+        © John Thomson {new Date(Date.now()).getUTCFullYear()}
       </p>
     </footer>
-  </>)
-}
+  </>);
+};
 
-export default Footer
+export default Footer;

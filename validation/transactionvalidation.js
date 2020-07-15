@@ -1,15 +1,15 @@
 const { check, validationResult } = require("express-validator");
-const { incomeCategories, expenditureCategories } = require('../models/transactioncategories')
-const cLog = require('../utils/Custom-Logging')
+const { incomeCategories, expenditureCategories } = require("../models/transactioncategories")
+const cLog = require("../utils/Custom-Logging")
 
 exports.getTransactionCreationErrors = [
-  check('description', 'description is required')
+  check("description", "description is required")
     .not()
     .isEmpty()
     .trim()
     .escape(),
 
-  check('amount', 'amount is required')
+  check("amount", "amount is required")
     .not()
     .isEmpty()
     .custom(value => value > 0)
@@ -17,17 +17,17 @@ exports.getTransactionCreationErrors = [
     .custom(value => /^\d+(\.\d{1,2})?$/.test(value))
     .withMessage("invalid amount. Must have a maximum of 2 decimal places."),
 
-  check('transactionType')
-    .custom(value => value === 'income' || value === 'expenditure' || value === 'Income' || value === 'Expenditure')
+  check("transactionType")
+    .custom(value => value === "income" || value === "expenditure" || value === "Income" || value === "Expenditure")
     .withMessage("Transaction type must be income or expenditure"),
 
-  check('category')
+  check("category")
     .custom(value => incomeCategories.includes(value) || expenditureCategories.includes(value))
     .withMessage("category must be one of " + incomeCategories + " or " + expenditureCategories),
 
-  check('transactionType')
+  check("transactionType")
     .custom((value, { req }) => {
-      if (value === 'income' || value === 'Income') {
+      if (value === "income" || value === "Income") {
         return incomeCategories.includes(req.body.category)
       }
       else
@@ -35,7 +35,7 @@ exports.getTransactionCreationErrors = [
     })
     .withMessage("Invalid category for transaction type"),
 
-  check('date')
+  check("date")
     .custom(date => {
       const [year, month, day] = date.split("-")
       const daysInMonth = getMonthDaysFromString(month)
@@ -45,9 +45,9 @@ exports.getTransactionCreationErrors = [
             return true
       return false
     })
-    .withMessage('Invalid date. Must be in the form yyyy-mm-dd with valid numbers')
+    .withMessage("Invalid date. Must be in the form yyyy-mm-dd with valid numbers")
 
-]
+];
 
 
 exports.transactionValidation = (req, res, next) => {
@@ -62,44 +62,43 @@ exports.transactionValidation = (req, res, next) => {
 
 const getMonthDaysFromString = (monthStr) => {
   let num = 0;
-  monthNum = Number(monthStr)
-  switch (monthNum) {
-    case 01:
+  switch (monthStr) {
+    case "1":
       num = 31;
       break
-    case 02:
+    case "2":
       num = 29
       break
-    case 03:
+    case "3":
       num = 31
       break
-    case 04:
+    case "4":
       num = 30
       break
-    case 05:
+    case "5":
       num = 31;
       break
-    case 06:
+    case "6":
       num = 30
       break
-    case 07:
+    case "7":
       num = 31
       break
-    case 08:
+    case "8":
       num = 31
       break
-    case 09:
+    case "9":
       num = 30;
       break
-    case 10:
+    case "10":
       num = 31
       break
-    case 11:
+    case "11":
       num = 30
       break
-    case 12:
+    case "12":
       num = 31
       break
   }
   return num;
-}
+};

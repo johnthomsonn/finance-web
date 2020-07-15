@@ -1,8 +1,8 @@
 const express = require("express");
 const cLog = require("../utils/Custom-Logging");
 const Transaction = require("../models/transactionmodel");
-const User = require("../models/usermodel")
-const { incomeCategories, expenditureCategories } = require("../models/transactioncategories")
+const User = require("../models/usermodel");
+const { incomeCategories, expenditureCategories } = require("../models/transactioncategories");
 
 // this will check the transaction user id matches the logged in user id
 exports.getTransactionById = async (req, res, next, id) => {
@@ -55,8 +55,6 @@ exports.deleteTransaction = (req, res) => {
   );
 };
 
-
-
 //add transaction using async await
 exports.addTransaction = async (req, res) => {
   try {
@@ -74,8 +72,6 @@ exports.addTransaction = async (req, res) => {
 
     if (savedTransaction != undefined) {
       const user = req.user;
-      //user.transactions.push(savedTransaction);
-      //const savedUser = await user.save();
       let balance = user.balance;
       if (savedTransaction.transactionType === "Income" || savedTransaction.transactionType === "income")
         balance += savedTransaction.amount;
@@ -103,18 +99,18 @@ exports.addTransaction = async (req, res) => {
 };
 
 exports.getAllTransactionsForMonth = (req, res) => {
-  const [month, year] = req.month.split("-")
+  const [month, year] = req.month.split("-");
   const transactions = req.user.transactions.filter(trans => {
     return "20" + year == trans.created.getFullYear() && month == trans.created.getMonth() + 1
-  })
+  });
   return res.json({
     transactions
-  })
+  });
 }
 
 exports.getTransactionCategories = (req, res) => {
   return res.status(200).json({
     income: incomeCategories,
     expenditure: expenditureCategories
-  })
+  });
 }

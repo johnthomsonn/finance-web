@@ -1,17 +1,17 @@
-const express = require('express')
-const cLog = require('../utils/Custom-Logging')
-const _ = require('lodash')
+const express = require("express");
+const cLog = require("../utils/Custom-Logging");
+const _ = require("lodash");
 
 exports.getMonthByUrlParam = (req, res, next, month) => {
-  const [monthUrl, year] = month.split("-")
-  const monthNum = getMonthNumberFromString(_.toLower(monthUrl))
+  const [monthUrl, year] = month.split("-");
+  const monthNum = getMonthNumberFromString(_.toLower(monthUrl));
   if (monthNum === 0) {
     return res.status(400).json({
       error: "Invalid month, please ensure it is in the form of mmm-yy."
-    })
+    });
   }
-  req.month = monthNum + "-" + year
-  next()
+  req.month = monthNum + "-" + year;
+  next();
 
 }
 

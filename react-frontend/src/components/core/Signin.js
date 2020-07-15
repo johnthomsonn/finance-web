@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from 'react'
-import { Redirect } from 'react-router-dom'
-import NavBar from '../navbar/Navbar'
-import "./Signin.css"
-import { isSignedIn } from '../../js/methods'
+import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
+import NavBar from "../navbar/Navbar";
+import "./Signin.css";
+import { isSignedIn } from "../../js/methods";
 
 const Signin = props => {
 
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const [input, setInput] = useState({
     unique: "",
     password: "",
     redirectToProfile: false
-  })
-  const [showSubmit, setShowSubmit] = useState(false)
+  });
+  const [showSubmit, setShowSubmit] = useState(false);
   const [validState, setValidState] = useState({
     unique: false,
     password: false
-  })
+  });
 
-  useEffect(() => shouldSubmitButtonAppear(), [validState])
+  useEffect(() => shouldSubmitButtonAppear(), [validState]);
 
   const setInputState = (name, change) => {
 
     if (name === "unique")
-      setValidState({ ...validState, unique: change.length > 0 })
+      setValidState({ ...validState, unique: change.length > 0 });
 
     if (name === "password")
       setValidState({ ...validState, password: change.length >= 8 });
-  }
+  };
 
 
   const handleInput = name => event => {
@@ -36,8 +36,8 @@ const Signin = props => {
     setInput({ ...input, [name]: change });
 
     //sets the input state to be valid or not depending on user input
-    setInputState(name, change)
-  }
+    setInputState(name, change);
+  };
 
   const submitSignIn = evt => {
     evt.preventDefault();
@@ -47,7 +47,7 @@ const Signin = props => {
     fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signin`, {
       method: "POST",
       mode: "cors",
-      credentials: 'include',
+      credentials: "include",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
@@ -70,17 +70,17 @@ const Signin = props => {
           }
         }
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err));
 
-  }
+  };
 
   const shouldSubmitButtonAppear = () => {
-    setShowSubmit((validState.unique && validState.password) ? true : false)
-  }
+    setShowSubmit((validState.unique && validState.password) ? true : false);
+  };
 
   if (input.redirectToProfile) {
     const username = JSON.parse(window.sessionStorage.getItem("user")).username;
-    return <Redirect to={`/${username}`} />
+    return <Redirect to={`/${username}`} />;
   }
 
 
@@ -144,6 +144,6 @@ const Signin = props => {
       </div>
     </div>
 
-  </>)
-}
-export default Signin
+  </>);
+};
+export default Signin;

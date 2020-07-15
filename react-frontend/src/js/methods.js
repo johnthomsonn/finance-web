@@ -1,9 +1,9 @@
 exports.isSignedIn = () => {
 
-  const allCookies = document.cookie.split(';');
+  const allCookies = document.cookie.split(";");
   let isLogged = undefined;
   allCookies.forEach(cookieStr => {
-    const cookies = cookieStr.split('=');
+    const cookies = cookieStr.split("=");
     if (cookies[0] == "localToken")
       isLogged = cookies[1];
   })
@@ -27,8 +27,8 @@ exports.signOut = (next) => {
     window.sessionStorage.removeItem("balance")
     next();
     return fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signout`, {
-      credentials: 'include',
-      mode: 'cors'
+      credentials: "include",
+      mode: "cors"
     })
       .catch(err => console.log(err))
   }
