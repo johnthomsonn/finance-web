@@ -12,6 +12,7 @@ const Signup = props => {
     email: "",
     password: "",
     confirm: "",
+    balance: 0,
     redirectToProfile: false
   });
   const [error, setError] = useState("")
@@ -57,7 +58,7 @@ const Signup = props => {
   const submitSignup = evt => {
     evt.preventDefault();
 
-    const { username, password, email, confirm } = input;
+    const { username, password, email, confirm, balance } = input;
 
     fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, {
       method: "POST",
@@ -71,7 +72,8 @@ const Signup = props => {
         username,
         email,
         password,
-        confirm
+        confirm,
+        balance
       })
     })
       .then(response => response.json())
@@ -170,6 +172,22 @@ const Signup = props => {
                 name="email"
                 value={input.email}
                 onChange={handleInput("email")}
+              />
+              <span className="bmd-help"> Email must be unique </span>
+            </div>
+
+            <div className="form-group">
+              <label for="balance" className="bmd-label-floating">
+                {" "}
+                Balance{" "}
+              </label>
+              <input
+                type="number"
+                className="form-control"
+                id="balance"
+                name="balance"
+                value={input.balance}
+                onChange={handleInput("balance")}
               />
               <span className="bmd-help"> Email must be unique </span>
             </div>
