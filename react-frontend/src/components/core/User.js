@@ -90,7 +90,7 @@ const User = props => {
 
 
       <div className="all-transactions">
-        <AllTransactions {...props} month={month} transactions={transactions} error={setError} removeTransaction={removeTransaction} />
+        <AllTransactions {...props} month={month} transactions={transactions} error={setError} removeTransaction={removeTransaction} setBalance={setBalance} />
       </div>
 
     </div>
