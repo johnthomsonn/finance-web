@@ -7,6 +7,7 @@ import Signin from "./Signin";
 import PrivateRoute from "./PrivateRoute";
 import User from "./User";
 import Page404 from "./404Page";
+import EditProfile from "./EditProfile"
 
 const MainRouter = props => {
   return (<>
@@ -17,6 +18,7 @@ const MainRouter = props => {
         <Route path="/signin" exact component={Signin} {...props} />
         <Route path="/signup" exact component={Signup} {...props} />
         <PrivateRoute path="/:user" exact component={User} {...props} />
+        <PrivateRoute path="/:user/edit" exact component={EditProfile} {...props} />
         <Page404 {...props} />
       </Switch>
 
