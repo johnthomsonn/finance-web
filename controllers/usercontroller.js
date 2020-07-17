@@ -16,3 +16,7 @@ exports.getUserByUsernameParam = (req, res, next, username) => {
     }
   });
 };
+
+exports.updateBalance = (req, res) => {
+
+}
