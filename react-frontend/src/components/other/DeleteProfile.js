@@ -57,7 +57,7 @@ const DeleteProfile = props => {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-primary btn-raised" data-dismiss="modal">Close</button>
-                        <button type="button" className="btn btn-danger" onClick={deleteProfile}>Delete Entire Profile</button>
+                        <button type="button" className="btn btn-danger" onClick={deleteProfile} data-dismiss="modal">Delete Entire Profile</button>
                     </div>
                 </div>
             </div>
