@@ -20,7 +20,7 @@ the express server on port PORT || 5000 and the react server on port 3000.
 ``` POST /auth/signin ``` => Signs in the user.  
 ``` GET /auth/signout ``` => Signs the user out.  
 ``` DELETE /user/:username ``` => Deletes the given user.   
-``` PATCH /user/username/balance ``` => updates the :username balance   
+``` PATCH /user/username/edit/balance ``` => updates the :username balance   
 
 ``` POST /user/:username/transaction ``` => adds a transaction to the user given in :username  
 ``` DELETE /user/:username/transaction/:transactionId ``` => deletes the transaction :transactionId from the user with username :username    
