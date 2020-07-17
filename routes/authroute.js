@@ -8,7 +8,7 @@ const { updateBalance } = require("../controllers/usercontroller");
 
 router.post("/signup", getSignupErrors, signupValidation, signup);
 router.post("/signin", getSignInErrors, signinValidation, signin);
-router.patch("/", updateBalance);
+router.patch("/edit/balance", updateBalance);
 router.get("/signout", signout);
 router.delete("/", deleteUser);
 
