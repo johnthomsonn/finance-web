@@ -6,6 +6,8 @@ const EditBalance = props => {
 
     const [error, setError] = useState("");
 
+
+
     const updateBalance = event => {
         event.preventDefault();
         const bal = document.getElementById("balance").value;
@@ -38,7 +40,7 @@ const EditBalance = props => {
                     Edit balance:
                 </label>
 
-                <input type="number" name="balance-input" id="balance" className="balance-input" step=".01" />
+                <input type="number" name="balance-input" id="balance" value={props.balance} className="balance-input" step=".01" />
                 <button type="submit" >Update</button>
 
             </form>
