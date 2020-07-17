@@ -18,11 +18,13 @@ exports.getUserByUsernameParam = (req, res, next, username) => {
 };
 
 exports.updateBalance = (req, res) => {
-  User.findByIdAndUpdate(req.auth, { $set: { balance: req.body.balance } }, { new: true }, doc => {
-    if (!doc) {
+  User.findByIdAndUpdate(req.auth, { $set: { balance: req.body.balance } }, { new: true, useFindAndModify: false }, (err, doc) => {
+    cLog.debug(doc)
+    if (err || !doc) {
       return res.status(400).json({
-        error: "unable to update the balance"
+        error: "Error updating balance."
       });
+
     }
     else {
       return res.json({
