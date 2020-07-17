@@ -36,6 +36,7 @@ const EditBalance = props => {
                     updateBalanceOnSuccess(data.balance);
                     document.getElementById("balance").value = "";
                     setMessage("Balance update succesful, you now have £" + data.balance);
+                    window.sessionStorage.setItem("balance", data.balance);
                 }
             })
             .catch(err => {
