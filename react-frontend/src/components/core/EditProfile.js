@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./EditProfile.css";
 import NavBar from "../navbar/Navbar";
-import EditBalance from "../other/EditBalance"
+import EditBalance from "../other/EditBalance";
+import DeleteProfile from "../other/DeleteProfile";
 
 const EditProfile = props => {
 
@@ -19,6 +20,8 @@ const EditProfile = props => {
             <h5>Edit Profile</h5>
 
             <EditBalance {...props} balance={balance} updateBalance={setBalance} />
+
+            <DeleteProfile {...props} />
 
         </div>
     </>);
