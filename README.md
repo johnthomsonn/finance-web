@@ -30,5 +30,4 @@ the express server on port PORT || 5000 and the react server on port 3000.
   
   
 TODO:
-    - ability to delete user profile
-    - signout does not redirect properly
+    - update user details
