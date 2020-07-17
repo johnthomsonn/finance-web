@@ -18,5 +18,16 @@ exports.getUserByUsernameParam = (req, res, next, username) => {
 };
 
 exports.updateBalance = (req, res) => {
-
+  User.findByIdAndUpdate(req.auth, { $set: { balance: req.body.balance } }, { new: true }, doc => {
+    if (!doc) {
+      return res.status(400).json({
+        error: "unable to update the balance"
+      });
+    }
+    else {
+      return res.json({
+        balance: doc.balance
+      });
+    }
+  });
 }
