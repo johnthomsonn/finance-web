@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Footer from "./Footer";
 import NavBar from "../navbar/Navbar";
@@ -7,9 +7,19 @@ import "./Home.css";
 
 const Home = props => {
 
+  const [balance, setBalance] = useState("");
+
+  useEffect(() => trySetBalance(), []);
+
+  const trySetBalance = () => {
+    if (typeof window !== undefined) {
+      setBalance(window.sessionStorage.getItem("balance"));
+    }
+  }
+
   return (<>
 
-    <NavBar {...props} />
+    <NavBar {...props} balance={balance} />
 
 
     <header>
