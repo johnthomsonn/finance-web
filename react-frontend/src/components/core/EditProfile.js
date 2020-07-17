@@ -18,7 +18,7 @@ const EditProfile = props => {
         <div className="edit-profile-container container-fluid">
             <h5>Edit Profile</h5>
 
-            <EditBalance {...props} balance={balance} />
+            <EditBalance {...props} balance={balance} updateBalance={setBalance} />
 
         </div>
     </>);
