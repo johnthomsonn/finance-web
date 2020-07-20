@@ -4,12 +4,6 @@ import "./MonthOverall.css";
 const MonthOverall = props => {
 
 
-    const [transactions, setTransactions] = useState([]);
-    const [sorted, setSorted] = useState({});
-
-    useEffect(() => setTransactions(props.transactions), []);
-    //useEffect(() => sortTransactions(), [])
-
     const sortTransactions = () => {
         let obj = {};
         props.transactions.map(t => {
@@ -26,21 +20,32 @@ const MonthOverall = props => {
                 obj = { ...obj, [cat]: amount }
             }
         });
-        //setSorted(obj)
-        //return obj;
-        console.log(obj);
+        return obj;
     };
 
     const doTable = () => {
-        const categories = sortTransactions();
+        const categoriesObj = sortTransactions();
+        const categoryArr = Object.keys(categoriesObj);
+        const vals = [];
+        for (let k in categoriesObj) {
+            vals.push(categoriesObj[k]);
+        }
 
-
+        const c = categoryArr.map((c, i) => {
+            return (
+                <tr key={i}>
+                    <td>{c}</td>
+                    <td>{vals[i]}</td>
+                </tr>
+            )
+        })
+        return c;
     };
 
     return (<>
+
         <div className="month-overall-div">
             <h5>{props.month} Summary</h5>
-            {sortTransactions()}
             <table className="table">
                 <thead>
                     <tr>
@@ -50,7 +55,7 @@ const MonthOverall = props => {
                 </thead>
 
                 <tbody>
-
+                    {doTable()}
                 </tbody>
             </table>
 
