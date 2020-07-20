@@ -87,7 +87,7 @@ const MonthOverall = props => {
                         <td>
                             Total in:
                     </td>
-                        <td>
+                        <td style={{ backgroundColor: "#ccf0c7" }}>
                             {findTotalByType("Income")}
                         </td>
                     </tr>
@@ -95,7 +95,7 @@ const MonthOverall = props => {
                         <td>
                             Total out:
                     </td>
-                        <td>
+                        <td style={{ backgroundColor: "#f2cbd2" }}>
                             {findTotalByType("Expenditure")}
                         </td>
                     </tr>
@@ -103,7 +103,7 @@ const MonthOverall = props => {
                         <td>
                             Net
                     </td>
-                        <td>
+                        <td style={{ backgroundColor: findNet() > 0 ? "#ccf0c7" : "#f2cbd2" }}>
                             {findNet()}
                         </td>
                     </tr>
