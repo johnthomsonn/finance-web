@@ -4,6 +4,7 @@ import { find } from "lodash";
 
 const MonthOverall = props => {
 
+    const formatter = new Intl.NumberFormat('en-GB', { style: "currency", currency: "GBP" });
 
     const sortTransactions = () => {
         let obj = {};
@@ -36,7 +37,7 @@ const MonthOverall = props => {
             return (
                 <tr key={i}>
                     <td>{c}</td>
-                    <td>{vals[i]}</td>
+                    <td>{formatter.format(vals[i])}</td>
                 </tr>
             )
         })
@@ -59,6 +60,8 @@ const MonthOverall = props => {
         const expend = findTotalByType("Expenditure");
         return income - expend;
     };
+
+
 
     return (<>
 
@@ -88,7 +91,7 @@ const MonthOverall = props => {
                             Total in:
                     </td>
                         <td style={{ backgroundColor: "#ccf0c7" }}>
-                            {findTotalByType("Income")}
+                            {formatter.format(findTotalByType("Income"))}
                         </td>
                     </tr>
                     <tr>
@@ -96,7 +99,7 @@ const MonthOverall = props => {
                             Total out:
                     </td>
                         <td style={{ backgroundColor: "#f2cbd2" }}>
-                            {findTotalByType("Expenditure")}
+                            {formatter.format(findTotalByType("Expenditure"))}
                         </td>
                     </tr>
                     <tr>
@@ -104,7 +107,7 @@ const MonthOverall = props => {
                             Net
                     </td>
                         <td style={{ backgroundColor: findNet() > 0 ? "#ccf0c7" : "#f2cbd2" }}>
-                            {findNet()}
+                            {formatter.format(findNet())}
                         </td>
                     </tr>
                 </tbody>
