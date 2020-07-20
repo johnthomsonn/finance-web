@@ -8,6 +8,8 @@ const Transaction = props => {
     const green = "#ccf0c7";
     const red = "#f2cbd2";
 
+    const formatter = new Intl.NumberFormat('en-GB', { style: "currency", currency: "GBP" });
+
     const deleteTransaction = () => {
         fetch(`${process.env.REACT_APP_SERVER_URL}/user/${JSON.parse(window.sessionStorage.getItem("user")).username}/transaction/${id}`, {
             method: "DELETE",
@@ -31,7 +33,7 @@ const Transaction = props => {
     return (<>
         <tr style={{ backgroundColor: type == "Income" ? green : red }}>
             <th scope="row">{count}</th>
-            <td>£{amount}</td>
+            <td>{formatter.format(amount)}</td>
             <td>{new Date(date).toLocaleDateString("default", {
                 day: "numeric", month: "short", year: "numeric"
             })}</td>
