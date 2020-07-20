@@ -47,7 +47,6 @@ const MonthOverall = props => {
     const findTotalByType = type => {
         let sum = 0;
         for (let t in props.transactions) {
-            console.log(props.transactions[t])
             if (props.transactions[t].transactionType === type) {
                 sum += props.transactions[t].amount;
             }
