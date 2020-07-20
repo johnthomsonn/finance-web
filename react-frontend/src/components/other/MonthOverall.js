@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./MonthOverall.css";
+import { find } from "lodash";
 
 const MonthOverall = props => {
 
@@ -42,6 +43,23 @@ const MonthOverall = props => {
         return c;
     };
 
+    const findTotalByType = type => {
+        let sum = 0;
+        for (let t in props.transactions) {
+            console.log(props.transactions[t])
+            if (props.transactions[t].transactionType === type) {
+                sum += props.transactions[t].amount;
+            }
+        }
+        return sum;
+    };
+
+    const findNet = () => {
+        const income = findTotalByType("Income");
+        const expend = findTotalByType("Expenditure");
+        return income - expend;
+    };
+
     return (<>
 
         <div className="month-overall-div">
@@ -57,6 +75,40 @@ const MonthOverall = props => {
                 <tbody>
                     {doTable()}
                 </tbody>
+            </table>
+
+            <hr style={{ border: "4px solid #e8e7e1" }} />
+
+            <table className="table">
+                <thead >
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            Total in:
+                    </td>
+                        <td>
+                            {findTotalByType("Income")}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Total out:
+                    </td>
+                        <td>
+                            {findTotalByType("Expenditure")}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Net
+                    </td>
+                        <td>
+                            {findNet()}
+                        </td>
+                    </tr>
+                </tbody>
+
             </table>
 
         </div>
