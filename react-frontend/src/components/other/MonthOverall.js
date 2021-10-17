@@ -11,6 +11,8 @@ const MonthOverall = props => {
         props.transactions.map(t => {
             const cat = t.category;
             const amount = t.amount;
+            
+            
             if (obj.hasOwnProperty(cat)) {
                 let total = obj[cat];
                 total += amount;
@@ -21,6 +23,7 @@ const MonthOverall = props => {
             else {
                 obj = { ...obj, [cat]: amount }
             }
+            
         });
         return obj;
     };
@@ -44,11 +47,17 @@ const MonthOverall = props => {
         return c;
     };
 
+    // exludes savings transactions
     const findTotalByType = type => {
         let sum = 0;
         for (let t in props.transactions) {
-            if (props.transactions[t].transactionType === type) {
-                sum += props.transactions[t].amount;
+            const transactionType = props.transactions[t].transactionType
+            const cat = props.transactions[t].category
+            if(cat !== "from savings" && cat !== "to savings" && cat != "save the pennies")
+            {
+                if (transactionType === type) {
+                    sum += props.transactions[t].amount;
+                }
             }
         }
         return sum;
@@ -60,7 +69,39 @@ const MonthOverall = props => {
         return income - expend;
     };
 
+    const findToSavings = () => {
+        let sum = 0;
+        for (let t in props.transactions) {
+            const transactionType = props.transactions[t].transactionType
+            const cat = props.transactions[t].category
+            if(cat === "to savings" || cat === "save the pennies")
+            {
+                sum += props.transactions[t].amount;
+               
+            }
+        }
+        return sum;
+    }
 
+    const findFromSavings = () => {
+        let sum = 0;
+        for (let t in props.transactions) {
+            const transactionType = props.transactions[t].transactionType
+            const cat = props.transactions[t].category
+            if(cat === "from savings")
+            {
+                sum += props.transactions[t].amount;
+               
+            }
+        }
+        return sum;
+    }
+
+    const findNetSavings = () => {
+        const to = findToSavings();
+        const from = findFromSavings();
+        return to - from;
+    }
 
     return (<>
 
@@ -80,7 +121,43 @@ const MonthOverall = props => {
             </table>
 
             <hr style={{ border: "4px solid #e8e7e1" }} />
+            {/* Savings net */}
+            <div style={{textAlign : "center"}}>Savings:</div>
+            <table className="table">
+                <thead >
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            To Savings:
+                    </td>
+                        <td style={{ backgroundColor: "#ccf0c7" }}>
+                            {formatter.format(findToSavings())}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            From Savings:
+                    </td>
+                        <td style={{ backgroundColor: "#f2cbd2" }}>
+                            {formatter.format(findFromSavings())}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Net
+                    </td>
+                        <td style={{ backgroundColor: findNetSavings() > 0 ? "#ccf0c7" : "#f2cbd2" }}>
+                            {formatter.format(findNetSavings())}
+                        </td>
+                    </tr>
+                </tbody>
 
+            </table>
+
+            <hr style={{ border: "4px solid #e8e7e1" }} />
+            {/* Net spend exluding savings*/}
+            <div style={{textAlign : "center"}}>Net exluding savings:</div>
             <table className="table">
                 <thead >
                 </thead>
