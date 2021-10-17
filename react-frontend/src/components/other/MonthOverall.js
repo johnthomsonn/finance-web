@@ -157,7 +157,7 @@ const MonthOverall = props => {
 
             <hr style={{ border: "4px solid #e8e7e1" }} />
             {/* Net spend exluding savings*/}
-            <div style={{textAlign : "center"}}>Net exluding savings:</div>
+            <div style={{textAlign : "center"}}>Net excluding savings:</div>
             <table className="table">
                 <thead >
                 </thead>
