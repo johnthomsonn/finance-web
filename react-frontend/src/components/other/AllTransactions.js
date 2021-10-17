@@ -7,6 +7,12 @@ const AllTransactions = props => {
     return (<>
         <div className="all-transactions-div">
             <h5>All Transactions for {props.month}</h5>
+            <div>
+                <span className="key-income">Income</span>
+                <span className="key-expend">Expenditure</span>
+                <span className="key-income-savings">From Savings</span>
+                <span className="key-expend-savings">To Savings</span>
+            </div>
 
             <div className="table-div">
                 <table className="table">

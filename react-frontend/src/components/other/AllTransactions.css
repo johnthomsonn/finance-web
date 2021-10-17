@@ -4,8 +4,22 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 10px;
 }
-
 .all-transactions-div h5 {
   text-decoration: underline;
   text-align: center;
+}
+.all-transactions-div .key-income {
+  background-color: #ccf0c7;
+}
+.all-transactions-div .key-expend {
+  background-color: #f2cbd2;
+  margin-left: 20px;
+}
+.all-transactions-div .key-income-savings {
+  background-color: #e8cdae;
+  margin-left: 20px;
+}
+.all-transactions-div .key-expend-savings {
+  background-color: #e8e8c8;
+  margin-left: 20px;
 }

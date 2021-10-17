@@ -7,7 +7,7 @@ const Transaction = props => {
 
     const green = "#ccf0c7";
     const red = "#f2cbd2";
-    const lightgreen = '#ecf0b6';
+    const lightgreen = '#e8e8c8';
     const lightred = '#e8cdae';
 
     const formatter = new Intl.NumberFormat('en-GB', { style: "currency", currency: "GBP" });
