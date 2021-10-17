@@ -7,6 +7,8 @@ const Transaction = props => {
 
     const green = "#ccf0c7";
     const red = "#f2cbd2";
+    const lightgreen = '#ecf0b6';
+    const lightred = '#e8cdae';
 
     const formatter = new Intl.NumberFormat('en-GB', { style: "currency", currency: "GBP" });
 
@@ -30,8 +32,33 @@ const Transaction = props => {
             .catch(error => props.error(error));
     };
 
+    const setBackgroundColour = () => {
+        if(type === "Income")
+        {
+            if(category === "from savings")
+            {
+                return lightred
+            }
+            else
+            {
+                return green;
+            }
+        }
+        else
+        {
+            if(category === "to savings" || category === "save the pennies")
+            {
+                return lightgreen
+            }
+            else
+            {
+                return red
+            }
+        }
+    }
+
     return (<>
-        <tr style={{ backgroundColor: type == "Income" ? green : red }}>
+        <tr style={{ backgroundColor: setBackgroundColour() }}>
             <th scope="row">{count}</th>
             <td>{formatter.format(amount)}</td>
             <td>{new Date(date).toLocaleDateString("default", {
